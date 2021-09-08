@@ -15,5 +15,5 @@ def path_setup():
 def session_setup(request):
     """Auto session resource fixture."""
     path_setup()
-    os.environ['DJANGO_SETTINGS_MODULE'] = 'tests.settings'
+    os.environ['DJANGO_SETTINGS_MODULE'] = 'example.settings'
     django.setup()

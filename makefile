@@ -14,7 +14,7 @@ SOURCE = django_admin_geomap
 TESTS = tests
 
 FLAKE8 = $(PYTHON) -m flake8 --max-line-length=120
-PYLINT = $(PYTHON) -m pylint --init-hook="sys.path.insert(0, './$(SOURCE)');sys.path.insert(0, './')" --load-plugins pylint_django --django-settings-module=tests.settings --load-plugins=pylint.extensions.mccabe --max-complexity=10
+PYLINT = $(PYTHON) -m pylint --init-hook="sys.path.insert(0, './$(SOURCE)');sys.path.insert(0, './')" --load-plugins pylint_django --django-settings-module=example.settings --load-plugins=pylint.extensions.mccabe --max-complexity=10
 PYTEST = $(PTEST) --cov=$(SOURCE) --cov-report term:skip-covered
 MANAGE = $(PYTHON) manage.py
 PIP = $(PYTHON) -m pip install
