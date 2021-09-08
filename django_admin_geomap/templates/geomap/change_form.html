@@ -1,0 +1,14 @@
+{% extends "admin/change_form.html" %}
+
+{% block after_field_sets %}
+
+{% if geomap_form %}
+
+  {% include "./osm/base.html" %}
+  {% if geomap_edit %}
+    {% include "./osm/drag.html" %}
+  {% endif %}
+
+{% endif %}
+
+{% endblock %}

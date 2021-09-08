@@ -1,0 +1,108 @@
+<!-- Pointer events polyfill for old browsers, see https://caniuse.com/#feat=pointer -->
+<script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.6.1/build/ol.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.6.1/css/ol.css">
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+
+<style type="text/css">
+#map { 
+    height: {{ geomap_height }};
+</style>
+
+<div id="map" class="map">
+  <div id="popup"></div>
+</div>
+
+<script type="text/javascript">
+
+var vectorSource = new ol.source.Vector({});
+var vectorLayer = new ol.layer.Vector({
+  source: vectorSource
+});
+
+var view = new ol.View({
+  center: ol.proj.fromLonLat([{{ geomap_longitude }}, {{ geomap_latitude }}]),
+  maxZoom: 19,
+  minZoom: 1,
+  zoom: {{ geomap_zoom }}
+});
+
+const map = new ol.Map({
+  layers: [new ol.layer.Tile({
+    source: new ol.source.OSM()
+    // source: new ol.source.OSM({
+    //   key: 'myKey',
+    //   crossOrigin: ''
+    // })
+  }), vectorLayer, ],
+
+  target: 'map',
+  controls: ol.control.defaults(),
+  view: view
+
+});
+
+var styles = new Map();
+
+function setMarker(coordinate, info_html, icon) {
+  var marker = new ol.Feature({
+    geometry: new ol.geom.Point(ol.proj.fromLonLat(coordinate)),
+    name: info_html,
+  });
+  marker.setStyle(styles.get(icon));
+  vectorSource.addFeature(marker);
+  return marker;
+}
+
+function setIconPointer() {
+// change mouse cursor when over marker
+  map.on("pointermove", function (evt) {
+    var hit = this.forEachFeatureAtPixel(evt.pixel, function(feature, layer) {
+        return true;
+    }); 
+    this.getTargetElement().style.cursor = (hit) ? 'pointer' : '';
+  });
+}
+
+{% for geoitem in geomap_items %}
+
+if (!styles.has("{{ geoitem.geomap_icon }}")) {
+  // create custom marker image
+  var style = new ol.style.Style({
+    image: new ol.style.Icon({
+      anchor: [0.5, 0.9],
+      anchorXUnits: 'fraction',
+      anchorYUnits: 'fraction',
+      opacity: 0.8,
+      src: "{{ geoitem.geomap_icon }}"
+    })
+  });
+  styles.set("{{ geoitem.geomap_icon }}", style);
+}
+
+geoitem_edit = setMarker(
+  [{{ geoitem.geomap_longitude }}, {{ geoitem.geomap_latitude }}],
+  {% if geomap_edit %}
+    "{{ geoitem.geomap_popup_edit|safe }}",
+  {% else %}
+    "{{ geoitem.geomap_popup_view|safe }}",
+  {% endif %}
+  "{{ geoitem.geomap_icon }}"
+);
+
+{% endfor %}
+
+{% if geomap_form %}
+
+const longitude_field = document.getElementById("{{ geomap_field_longitude }}");
+const latitude_field = document.getElementById("{{ geomap_field_latitude }}");
+
+{% else %}
+
+const longitude_field = undefined;
+const latitude_field = undefined;
+
+{% endif %}
+
+</script>

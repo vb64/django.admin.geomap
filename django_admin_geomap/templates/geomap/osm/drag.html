@@ -1,0 +1,18 @@
+<script type="text/javascript">
+
+const dragInteraction = new ol.interaction.Modify({
+    features: new ol.Collection([geoitem_edit]),
+    style: null
+});
+
+map.addInteraction(dragInteraction)
+
+geoitem_edit.on('change', function() {
+    var coords = ol.proj.toLonLat(this.getGeometry().getCoordinates());
+    longitude_field.value = '' + coords[0];
+    latitude_field.value = '' + coords[1];
+}, geoitem_edit);
+
+setIconPointer()
+
+</script>
