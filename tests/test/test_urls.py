@@ -27,3 +27,9 @@ class TestsUrls(TestBase):
 
         response = self.client.get(reverse('admin:index'))
         assert response.status_code == 200
+
+        response = self.client.get(reverse('admin:example_location_changelist'))
+        assert response.status_code == 200
+
+        response = self.client.get(reverse('admin:example_location_add'))
+        assert response.status_code == 200
