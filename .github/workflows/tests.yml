@@ -35,6 +35,8 @@ jobs:
         python -m pylint --load-plugins=pylint.extensions.mccabe --max-complexity=10 --init-hook="sys.path.insert(0, './')" --load-plugins pylint_django --django-settings-module=example.settings --disable=relative-import tests/test
 
     - name: pytest
+      env:
+        CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
       run: |
         python manage.py collectstatic --noinput --settings example.settings
         python manage.py makemigrations --settings example.settings example
