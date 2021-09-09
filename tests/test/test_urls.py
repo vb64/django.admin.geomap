@@ -33,3 +33,20 @@ class TestsUrls(TestBase):
 
         response = self.client.get(reverse('admin:example_location_add'))
         assert response.status_code == 200
+
+        from example.models import Location
+
+        location = Location(
+          name='First location'
+        )
+        location.save()
+
+        response = self.client.get(reverse('admin:example_location_change', args=(location.id,)))
+        assert response.status_code == 200
+
+        location.lon = 0.0
+        location.lat = 0.0
+        location.save()
+
+        response = self.client.get(reverse('admin:example_location_change', args=(location.id,)))
+        assert response.status_code == 200
