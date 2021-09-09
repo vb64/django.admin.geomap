@@ -1,0 +1,45 @@
+<script type="text/javascript">
+
+var new_marker;
+var styles = new Map();
+
+var style = new ol.style.Style({
+  image: new ol.style.Icon({
+    anchor: [0.5, 0.9],
+    anchorXUnits: 'fraction',
+    anchorYUnits: 'fraction',
+    opacity: 0.8,
+    src: "{{ geomap_new_feature_icon }}"
+  })
+});
+
+styles.set("{{ geomap_new_feature_icon }}", style);
+
+map.on('click', function (evt) {
+  if (new_marker) {
+    return;
+  }
+
+  var coords = ol.proj.toLonLat(evt.coordinate);
+  new_marker = setMarker(coords, "", "{{ geomap_new_feature_icon }}");
+  longitude_field.value = '' + coords[0];
+  latitude_field.value = '' + coords[1];
+
+  const dragInteraction = new ol.interaction.Modify({
+    features: new ol.Collection([new_marker]),
+    style: null
+  });
+
+  map.addInteraction(dragInteraction)
+
+  new_marker.on('change', function() {
+    var coords = ol.proj.toLonLat(this.getGeometry().getCoordinates());
+    longitude_field.value = '' + coords[0];
+    latitude_field.value = '' + coords[1];
+  }, new_marker);
+
+});
+
+setIconPointer()
+
+</script>

@@ -1,0 +1,72 @@
+<style type="text/css">
+
+.popover-body {
+    padding: .5rem .75rem;
+    color: #212529;
+}
+
+.popover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1060;
+    display: block;
+    max-width: 276px;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    line-height: 1.5;
+    font-size: .875rem;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: .3rem;
+}
+
+</style>
+
+<script type="text/javascript">
+
+const element = document.getElementById('popup');
+
+const popup = new ol.Overlay({
+  element: element,
+  positioning: 'bottom-center',
+  stopEvent: false,
+});
+map.addOverlay(popup);
+
+// display popup on click
+map.on('click', function (evt) {
+  const feature = map.forEachFeatureAtPixel(evt.pixel, function (feature) {
+    return feature;
+  });
+  if (feature) {
+    $(element).popover('dispose');
+    popup.setPosition(evt.coordinate);
+    $(element).popover({
+      placement: 'top',
+      html: true,
+      content: feature.get('name'),
+    });
+    $(element).popover('show');
+  } else {
+    $(element).popover('dispose');
+  }
+});
+
+// Close the popup when the map is moved
+map.on('movestart', function () {
+  $(element).popover('dispose');
+});
+
+// change mouse cursor when over marker
+map.on("pointermove", function (evt) {
+    var hit = this.forEachFeatureAtPixel(evt.pixel, function(feature, layer) {
+        return true;
+    }); 
+    this.getTargetElement().style.cursor = (hit) ? 'pointer' : '';
+});
+
+setIconPointer()
+
+</script>

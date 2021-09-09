@@ -1,0 +1,11 @@
+__pycache__
+migrations
+static/*
+*.pyc
+*.mo
+*.log
+*.sqlite3
+.coverage
+htmlcov/*
+venv/*
+venv.*
