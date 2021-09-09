@@ -1,4 +1,6 @@
 __pycache__
+migrations
+static/*
 *.pyc
 *.mo
 *.log

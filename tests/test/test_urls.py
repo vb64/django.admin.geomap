@@ -16,3 +16,14 @@ class TestsUrls(TestBase):
         """Root page."""
         response = self.client.get(reverse('home'))
         assert response.status_code == 200
+
+    def test_admin(self):
+        """Admin site urls."""
+        from django.contrib.auth.models import User  # pylint: disable=imported-auth-user
+
+        password = 'mypassword'
+        admin = User.objects.create_superuser('admin', 'myemail@test.com', password)
+        self.client.login(username=admin.username, password=password)
+
+        response = self.client.get(reverse('admin:index'))
+        assert response.status_code == 200
