@@ -66,40 +66,8 @@ DATABASES = {
 }
 
 # Internationalization
-# https://docs.djangoproject.com/en/1.8/topics/i18n/
-
-# LANGUAGE_CODE = 'en-us'
-LANGUAGE_CODE = 'ru'
-
-# TIME_ZONE = 'UTC'
-# TIME_ZONE = 'Europe/Moscow'
-TIME_ZONE = 'Europe/Samara'
-USE_I18N = True
-USE_L10N = True
+LANGUAGE_CODE = 'en-us'
+TIME_ZONE = 'UTC'
+USE_I18N = False
+USE_L10N = False
 USE_TZ = False
-
-LOCALE_PATHS = (
-  os.path.join(BASE_DIR, 'locale'),
-)
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.8/howto/static-files/
-# https://stackoverflow.com/questions/20398600/django-runserver-not-serving-static-files-in-development
-
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
-
-STATICFILES_DIRS = (
-    os.path.join(os.path.join(os.path.dirname(BASE_DIR), 'assets')),
-)
-
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-)
-
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'files')
-MEDIA_URL = '/files/'
-
-DB_SUPERUSER_EMAIL = 'mail@vitaly-bogomolov.ru'
-DB_SUPERUSER_PASS = 'pass'
