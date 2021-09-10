@@ -50,11 +50,21 @@ db:
 static:
 	$(MANAGE) collectstatic --noinput $(SETTINGS)
 
+package:
+	$(PYTHON) -m build -n
+
+pypitest: package
+	$(PYTHON) -m twine upload --repository testpypi dist/*
+
+pypi: package
+	$(PYTHON) -m twine upload dist/*
+
 setup: setup_python setup_pip
 
 setup_pip:
 	$(PIP) --upgrade pip
 	$(PIP) -r $(TESTS)/requirements.txt
+	$(PYTHON) -m pip install -r deploy.txt
 
 setup_python:
 	$(PYTHON_BIN) -m venv ./venv
