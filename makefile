@@ -50,11 +50,15 @@ db:
 static:
 	$(MANAGE) collectstatic --noinput $(SETTINGS)
 
+package:
+	$(PYTHON) -m build -n
+
 setup: setup_python setup_pip
 
 setup_pip:
 	$(PIP) --upgrade pip
 	$(PIP) -r $(TESTS)/requirements.txt
+	$(PYTHON) -m pip install -r deploy.txt
 
 setup_python:
 	$(PYTHON_BIN) -m venv ./venv
