@@ -44,10 +44,11 @@ TEMPLATES = [
 Допустим, у нас в БД имеется таблица, записи которой содержат данные о координатах.
 
 ```python
+# models.py
 from django.db import models
 
 class Location(models.Model):
-    name = models.CharField()
+    name = models.CharField(max_length=100)
     lon = models.FloatField()  # долгота
     lat = models.FloatField()  # широта
 
@@ -141,7 +142,7 @@ class Location(models.Model, GeoItem):
 ### Текст во всплывающем блоке при клике мышью по маркеру на карте
 
 Свойства `geomap_popup_view` и `geomap_popup_edit` у класса модели задают HTML код, который используется во всплывающем блоке при клике мышью по маркеру на карте.
-Свойство `geomap_popup_view` задает код для пользователя без прав на изменения объекта, а свойство `geomap_popup_edit` - для пользователя, который имеет права на редактирование.
+Свойство `geomap_popup_view` задает код для пользователя без прав на изменение объекта, а свойство `geomap_popup_edit` - для пользователя, который имеет права на редактирование.
 
 По умолчанию оба свойства возвращают строковое представление объекта.
 
