@@ -2,6 +2,8 @@
 
 Бесплатная, с открытым исходным кодом библиотека GeoMap предназначена для отображения обьектов на карте в админке Django.
 
+![Обьекты на карте в админке Django](img/listchange01.jpg)
+
 Существует проект [GeoDjango](https://docs.djangoproject.com/en/3.2/ref/contrib/gis/), решающий в т.ч. и эту задачу. 
 GeoDjango является полноценным многофункциональным ГИС фреймворком.
 По этой причине он имеет большой [список зависимостей](https://docs.djangoproject.com/en/3.2/ref/contrib/gis/install/#requirements) от различных библиотек
@@ -33,6 +35,8 @@ TEMPLATES = [
 ]
 ```
 
+Пример такого подключения можно посмотреть в файле [example/settings.py](https://github.com/vb64/django.admin.geomap/blob/3fb078d231517f368158ff4fd2c63c11092af979/example/settings.py#L43).
+
 Включать библиотеку в список `INSTALLED_APPS` в `settings.py` не требуется.
 
 ## Исходные данные
@@ -53,10 +57,15 @@ class Location(models.Model):
 
 ## Отображение списка обьектов на карте
 
+Чтобы включить отображение обьектов `Location` на карте в админке Django нужно внести изменения в класс модели в файле `models.py` и в файл настроек админки `admin.py`.
+
+В список наследования класса `Location` нужно добавить "примесный" класс `GeoItem` из библиотеки GeoMap и определить два свойства: `geomap_longitude` и `geomap_latitude`.
+Эти свойства должны возвращать долготу и широту обьекта в виде строки.
+
 ```python
 # models.py
 from django.db import models
-from geomap import GeoItem
+from django_admin_geomap import GeoItem
 
 class Location(models.Model, GeoItem):
 
@@ -69,14 +78,18 @@ class Location(models.Model, GeoItem):
         return str(self.lat)
 ```
 
+В файле `admin.py` нужно при регистрации модели нужно использовать класс ModelAdmin из библиотеки GeoMap.
+
 ```python
 # admin.py
 from django.contrib import admin
-from geomap import ModelAdmin
+from django_admin_geomap import ModelAdmin
 from .models import Location
 
 admin.site.register(Location, ModelAdmin)
 ```
+
+После внесения данных изменений в админке на странице со списком обьектов `Location` под таблицей будет отображаться карта с маркерами в местах расположения этих обьектов.
 
 ## Отображение редактируемого/добавляемого обьекта на карте
 
