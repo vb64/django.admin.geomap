@@ -6,7 +6,7 @@
 
 The free, open-source django-admin-geomap library is designed to display objects on the map in the Django admin site.
 
-![objects on the map in the Django admin site](img/listchange.jpg)
+![objects on the map in the Django admin site](img/listchange.png)
 
 There is a full-fledged multifunctional GIS framework [GeoDjango](https://docs.djangoproject.com/en/3.2/ref/contrib/gis/).
 When is used in the Django admin site, you can display objects on the map.
