@@ -78,7 +78,7 @@ class Location(models.Model, GeoItem):
         return str(self.lat)
 ```
 
-В файле `admin.py` нужно при регистрации модели нужно использовать класс ModelAdmin из библиотеки GeoMap.
+В файле `admin.py` при регистрации модели нужно использовать класс `django_admin_geomap.ModelAdmin`.
 
 ```python
 # admin.py
@@ -169,21 +169,17 @@ class Location(models.Model, GeoItem):
 
 ```python
 # admin.py
-from django.contrib import admin
 from django_admin_geomap import ModelAdmin
-from .models import Location
 
 class Admin(ModelAdmin):
-    geomap_new_feature_icon = Location.default_icon
-
-admin.site.register(Location, Admin)
+    geomap_new_feature_icon = "/myicon.png"
 ```
 
 ### Масштаб и центр карты при отображении списка обьектов
 
 Вы можете менять масштаб и положение центра карты, задавая свойства `geomap_default_longitude`, `geomap_default_latitude` и `geomap_default_zoom` у класса `django_admin_geomap.ModelAdmin`.
 
-По умолчанию центр карты располагается в точке с координатами "0.0, 0.0" и используется масштаб 1.
+По умолчанию центр карты располагается в точке с координатами "0.0", "0.0" и используется масштаб "1".
 
 ```python
 # admin.py
@@ -199,7 +195,7 @@ class Admin(ModelAdmin):
 
 При редактировании/просмотре обьекта центр карты сопадает с местом расположения обьекта, а масштаб карты можно задать, используя свойство `geomap_item_zoom` у класса `django_admin_geomap.ModelAdmin`.
 
-По умолчанию этот масштаб равен 13.
+По умолчанию этот масштаб равен "13".
 
 ```python
 # admin.py
@@ -221,5 +217,5 @@ class Admin(ModelAdmin):
 from django_admin_geomap import ModelAdmin
 
 class Admin(ModelAdmin):
-    geomap_height = "500px"
+    geomap_height = "300px"
 ```
