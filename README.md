@@ -1,10 +1,10 @@
-# Django-admin-geomap library
+# DjangoAdminGeomap library
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/vb64/django.admin.geomap/geomap-pep257?label=Pep257&style=plastic)](https://github.com/vb64/django.admin.geomap/actions?query=workflow%3Ageomap-pep257)
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/vb64/django.admin.geomap/geomap-tests?label=Django%203.2.5&style=plastic)](https://github.com/vb64/django.admin.geomap/actions?query=workflow%3Ageomap-tests)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/d565c3a3d78e4e198f35688432a741eb)](https://www.codacy.com/gh/vb64/django.admin.geomap/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=vb64/django.admin.geomap&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/d565c3a3d78e4e198f35688432a741eb)](https://www.codacy.com/gh/vb64/django.admin.geomap/dashboard?utm_source=github.com&utm_medium=referral&utm_content=vb64/django.admin.geomap&utm_campaign=Badge_Coverage)
 
-The free, open-source django-admin-geomap library is designed to display objects on the map in the Django admin site.
+The free, open-source DjangoAdminGeomap library is designed to display objects on the map in the Django admin site.
 
 ![objects on the map in the Django admin site](img/listchange.png)
 
@@ -13,15 +13,15 @@ When is used in the Django admin site, you can display objects on the map.
 However, GeoDjango has a large [list of dependencies](https://docs.djangoproject.com/en/3.2/ref/contrib/gis/install/#requirements) on various libraries
 and the specifics of installing these libraries on various platforms.
 
-If you only need to display objects on the map in the Django admin site, then you can use the django-admin-geomap library.
+If you only need to display objects on the map in the Django admin site, then you can use the DjangoAdminGeomap library.
 It has no additional requirements for the names and data types of fields in the database tables, and there are no installation dependencies.
 
-Django-admin-geomap uses the [OpenLayers](https://openlayers.org/) JavaScript framework to display map data.
+DjangoAdminGeomap uses the [OpenLayers](https://openlayers.org/) JavaScript framework to display map data.
 The source of the cartographic data is the data of the [OpenStreetMap project](https://www.openstreetmap.org/).
 
 ## Installation
 
-```
+```bash
 pip install django-admin-geomap
 ```
 
@@ -29,7 +29,7 @@ After installation, you need to plug the library into your Django project by mak
 
 ## Changes to settings.py
 
-To connect django-admin-geomap to your project, you need to add to the file `settings.py` in the key` TEMPLATES` the path to the directory `templates` of the library.
+To connect DjangoAdminGeomap to your project, you need to add to the file `settings.py` in the key` TEMPLATES` the path to the directory `templates` of the library.
 
 ```python
 TEMPLATES = [
@@ -66,7 +66,6 @@ To enable the display of `Location` objects on the map in the Django admin panel
 
 Add the django_admin_geomap.GeoItem "mixin" class to the inheritance list of the `Location` class and define two properties:` geomap_longitude` and `geomap_latitude`.
 These properties should return the longitude and latitude of the object as a string.
-
 
 ```python
 # models.py

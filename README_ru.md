@@ -1,6 +1,6 @@
-# Библиотека django-admin-geomap
+# Библиотека DjangoAdminGeomap
 
-Бесплатная, с открытым исходным кодом библиотека django-admin-geomap предназначена для отображения объектов на карте в админке Django.
+Бесплатная, с открытым исходным кодом библиотека DjangoAdminGeomap предназначена для отображения объектов на карте в админке Django.
 
 ![объекты на карте в админке Django](img/listchange01.jpg)
 
@@ -9,15 +9,15 @@
 Однако GeoDjango имеет большой [список зависимостей](https://docs.djangoproject.com/en/3.2/ref/contrib/gis/install/#requirements) от различных библиотек
 и особенности установки этих библиотек на различных платформах.
 
-Если вам требуется только отображение объектов на карте в админке Django, то можно использовать библиотеку django-admin-geomap. 
+Если вам требуется только отображение объектов на карте в админке Django, то можно использовать библиотеку DjangoAdminGeomap. 
 У нее нет дополнительных требований к именам и типам данных полей в таблицах базы данных и отсутствуют зависимости при установке.
 
-Для отображения картографических данных django-admin-geomap использует JavaScript фреймворк [OpenLayers](https://openlayers.org/).
+Для отображения картографических данных DjangoAdminGeomap использует JavaScript фреймворк [OpenLayers](https://openlayers.org/).
 Источником картографических данных являются данные проекта [OpenStreetMap](https://www.openstreetmap.org/).
 
 ## Установка
 
-```
+```bash
 pip install django-admin-geomap
 ```
 
@@ -25,7 +25,7 @@ pip install django-admin-geomap
 
 ## Изменения в settings.py
 
-Для подключения django-admin-geomap к вашему проекту нужно добавить в файл `settings.py` в ключ `TEMPLATES` путь на каталог `templates` библиотеки.
+Для подключения DjangoAdminGeomap к вашему проекту нужно добавить в файл `settings.py` в ключ `TEMPLATES` путь на каталог `templates` библиотеки.
 
 ```python
 TEMPLATES = [
