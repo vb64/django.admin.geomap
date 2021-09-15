@@ -64,7 +64,7 @@ When working with this table in the admin panel, we want to see a map with objec
 
 To enable the display of `Location` objects on the map in the Django admin panel, you need to make changes to the model class in the` models.py` file and to the `admin.py` file.
 
-Add the django_admin_geomap.GeoItem "mixin" class to the inheritance list of the `Location` class and define two properties:` geomap_longitude` and `geomap_latitude`.
+Add the `django_admin_geomap.GeoItem` "mixin" class to the inheritance list of the `Location` class and define two properties:` geomap_longitude` and `geomap_latitude`.
 These properties should return the longitude and latitude of the object as a string.
 
 ```python
@@ -83,7 +83,7 @@ class Location(models.Model, GeoItem):
         return str(self.lat)
 ```
 
-In the `admin.py` file, when registering a model, you need to use the` django_admin_geomap.ModelAdmin` class.
+In the `admin.py` file, when registering a model, you need to use the `django_admin_geomap.ModelAdmin` class.
 
 ```python
 # admin.py
@@ -166,9 +166,9 @@ class Location(models.Model, GeoItem):
         return self.geomap_popup_view
 ```
 
-### New object marker icon
+### New object icon
 
-The `geomap_new_feature_icon` property of the` django_admin_geomap.ModelAdmin` class sets the path to the marker icon when adding a new object.
+The `geomap_new_feature_icon` property of the `django_admin_geomap.ModelAdmin` class sets the path to the marker icon when adding a new object.
 
 ```python
 # admin.py
@@ -180,7 +180,7 @@ class Admin(ModelAdmin):
 
 ### Zoom level and center of the map when displaying a list of objects
 
-You can change the zoom level and position of the center of the map by setting the properties `geomap_default_longitude`,` geomap_default_latitude` and `geomap_default_zoom` in the class` django_admin_geomap.ModelAdmin`.
+You can change the zoom level and position of the center of the map by setting the properties `geomap_default_longitude`,` geomap_default_latitude` and `geomap_default_zoom` in the class `django_admin_geomap.ModelAdmin`.
 
 By default, the center of the map is located at the point with coordinates "0.0", "0.0" and the scale is "1".
 
