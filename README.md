@@ -62,7 +62,7 @@ When working with this table in the admin panel, we want to see a map with objec
 
 ## Displaying a list of objects on the map
 
-To enable the display of `Location` objects on the map in the Django admin panel, you need to make changes to the model class in the` models.py` file and to the `admin.py` admin settings file.
+To enable the display of `Location` objects on the map in the Django admin panel, you need to make changes to the model class in the` models.py` file and to the `admin.py` file.
 
 Add the django_admin_geomap.GeoItem "mixin" class to the inheritance list of the `Location` class and define two properties:` geomap_longitude` and `geomap_latitude`.
 These properties should return the longitude and latitude of the object as a string.
@@ -126,7 +126,7 @@ When adding a new object, its position can be set by clicking on the map. Furthe
 
 The library allows you to customize the view of the map and objects by setting special properties for the model class and the `django_admin_geomap.ModelAdmin` class.
 
-### Object marker icon on the map
+### Object icon on the map
 
 The `geomap_icon` property of the model class sets the path to the marker icon. You can use different icons depending on the state of a particular object.
 
