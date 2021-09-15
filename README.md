@@ -179,11 +179,11 @@ class Admin(ModelAdmin):
     geomap_new_feature_icon = "/myicon.png"
 ```
 
-### Масштаб и центр карты при отображении списка объектов
+### Zoom level and center of the map when displaying a list of objects
 
-Вы можете менять масштаб и положение центра карты, задавая свойства `geomap_default_longitude`, `geomap_default_latitude` и `geomap_default_zoom` у класса `django_admin_geomap.ModelAdmin`.
+You can change the zoom level and position of the center of the map by setting the properties `geomap_default_longitude`,` geomap_default_latitude` and `geomap_default_zoom` in the class` django_admin_geomap.ModelAdmin`.
 
-По умолчанию центр карты располагается в точке с координатами "0.0", "0.0" и используется масштаб "1".
+By default, the center of the map is located at the point with coordinates "0.0", "0.0" and the scale is "1".
 
 ```python
 # admin.py
@@ -195,11 +195,11 @@ class Admin(ModelAdmin):
     geomap_default_zoom = "3"
 ```
 
-### Масштаб карты при редактировании/просмотре объекта
+### Map zoom when editing/viewing an object
 
-При редактировании/просмотре объекта центр карты сопадает с местом расположения объекта, а масштаб карты можно задать, используя свойство `geomap_item_zoom` у класса `django_admin_geomap.ModelAdmin`.
+In object edit form the center of the map coincides with the location of the object. The zoom level of the map can be set by using the `geomap_item_zoom` property of the `django_admin_geomap.ModelAdmin` class.
 
-По умолчанию этот масштаб равен "13".
+The default is "13".
 
 ```python
 # admin.py
@@ -209,12 +209,12 @@ class Admin(ModelAdmin):
     geomap_item_zoom = "10"
 ```
 
-### Размер карты по вертикали
+### Vertical map size
 
-При отображении карта занимает максимально возможный размер по горизонтали, а размер по вертикали можно задать через свойство `geomap_height` у класса `django_admin_geomap.ModelAdmin`.
-Значение должно быть строкой, допустимой в определении CSS стиля.
+When displayed, the map occupies the maximum possible horizontal size. The vertical size can be set via the `geomap_height` property of the `django_admin_geomap.ModelAdmin` class.
+The value must be a string valid in the CSS style definition.
 
-По умолчанию "500px".
+The default is "500px".
 
 ```python
 # admin.py
