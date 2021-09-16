@@ -53,12 +53,9 @@ class ModelAdmin(admin.ModelAdmin):
     def set_common(self, request, extra_context):
         """Set common map properties."""
         extra_context = extra_context or {}
+        fill_geomap_context(extra_context)
         extra_context['geomap_edit'] = self.has_change_permission(request)
         extra_context['geomap_new_feature_icon'] = self.geomap_new_feature_icon
-        extra_context['geomap_longitude'] = self.geomap_default_longitude
-        extra_context['geomap_latitude'] = self.geomap_default_latitude
-        extra_context['geomap_zoom'] = self.geomap_default_zoom
-        extra_context['geomap_height'] = self.geomap_height
         extra_context['geomap_form'] = self.geomap_field_longitude and self.geomap_field_latitude
         extra_context['geomap_field_longitude'] = self.geomap_field_longitude
         extra_context['geomap_field_latitude'] = self.geomap_field_latitude
@@ -88,3 +85,11 @@ class ModelAdmin(admin.ModelAdmin):
     def add_view(self, request, form_url='', extra_context=None):
         """New antenna data at the map."""
         return super().add_view(request, form_url, extra_context=self.set_common(request, extra_context))
+
+
+def fill_geomap_context(context):
+    """Fill context with geomap defaults."""
+    context['geomap_longitude'] = ModelAdmin.geomap_default_longitude
+    context['geomap_latitude'] = ModelAdmin.geomap_default_latitude
+    context['geomap_zoom'] = ModelAdmin.geomap_default_zoom
+    context['geomap_height'] = ModelAdmin.geomap_height
