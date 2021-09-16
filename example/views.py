@@ -1,7 +1,7 @@
 """Django url views."""
-from django.http import HttpResponse
+from django.shortcuts import render
 
 
 def home(request):
     """Main page."""
-    return HttpResponse("Hi")
+    return render(request, 'example_home.html', {})
