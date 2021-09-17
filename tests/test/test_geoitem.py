@@ -21,6 +21,7 @@ class TestsGeoItem(TestBase):
         assert 'red.png' in location.geomap_icon
         assert name in location.geomap_popup_view
         assert name in location.geomap_popup_edit
+        assert name in location.geomap_popup_common
         assert location.geomap_latitude == ''
         assert location.geomap_longitude == ''
 

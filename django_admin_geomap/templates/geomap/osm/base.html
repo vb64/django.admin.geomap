@@ -83,10 +83,14 @@ if (!styles.has("{{ geoitem.geomap_icon }}")) {
 
 geoitem_edit = setMarker(
   [{{ geoitem.geomap_longitude }}, {{ geoitem.geomap_latitude }}],
-  {% if geomap_edit %}
-    "{{ geoitem.geomap_popup_edit|safe }}",
+  {% if geomap_common %}
+    "{{ geoitem.geomap_popup_common|safe }}",
   {% else %}
-    "{{ geoitem.geomap_popup_view|safe }}",
+    {% if geomap_edit %}
+      "{{ geoitem.geomap_popup_edit|safe }}",
+    {% else %}
+      "{{ geoitem.geomap_popup_view|safe }}",
+    {% endif %}
   {% endif %}
   "{{ geoitem.geomap_icon }}"
 );

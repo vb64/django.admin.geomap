@@ -4,7 +4,7 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/d565c3a3d78e4e198f35688432a741eb)](https://www.codacy.com/gh/vb64/django.admin.geomap/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=vb64/django.admin.geomap&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/d565c3a3d78e4e198f35688432a741eb)](https://www.codacy.com/gh/vb64/django.admin.geomap/dashboard?utm_source=github.com&utm_medium=referral&utm_content=vb64/django.admin.geomap&utm_campaign=Badge_Coverage)
 
-The free, open-source DjangoAdminGeomap library is designed to display objects on the map in the Django admin site.
+The free, open-source DjangoAdminGeomap library is designed to display objects on the map in the Django views and admin site.
 
 ![objects on the map in the Django admin site](img/listchange.png)
 
@@ -58,11 +58,11 @@ class Location(models.Model):
 
 ```
 
-When working with this table in the admin panel, we want to see a map with objects from this table located on it.
+On the main page of the site and when working with this table in the admin panel, we want to see a map with objects from this table located on it.
 
-## Displaying a list of objects on the map
+## Main page with a list of objects on the map
 
-To enable the display of `Location` objects on the map in the Django admin panel, you need to make changes to the model class in the` models.py` file and to the `admin.py` file.
+To enable the display of `Location` objects on the map, you need to make changes to the model class in the `models.py` file.
 
 Add the `django_admin_geomap.GeoItem` "mixin" class to the inheritance list of the `Location` class and define two properties:` geomap_longitude` and `geomap_latitude`.
 These properties should return the longitude and latitude of the object as a string.
@@ -76,14 +76,60 @@ class Location(models.Model, GeoItem):
 
     @property
     def geomap_longitude(self):
-        return str(self.lon)
+        return '' if self.lon is None else str(self.lon)
 
     @property
     def geomap_latitude(self):
-        return str(self.lat)
+        return '' if self.lon is None else str(self.lat)
 ```
 
-In the `admin.py` file, when registering a model, you need to use the `django_admin_geomap.ModelAdmin` class.
+After making these changes to the definition of the model, you can display a map with objects from the `Location` table in an arbitrary view.
+To do this, you need to include the file `geomap/common.html` in the page template. For example, the site root page template `home.html` might look like this:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<title>DjangoAdminGeomap example</title>
+</head>
+
+<body>
+Hello, OpenStreetMap!
+<div>{% include "geomap/common.html" %}</div>
+</body>
+
+</html>
+```
+
+In the view function, you need to pass to this template the context formed by calling the `geomap_context` function.
+As a required argument to the function, you need to pass an iterable sequence of objects to display on the map.
+For example a list or Django QuerySet.
+
+```python
+# views.py
+from django.shortcuts import render
+from django_admin_geomap import geomap_context
+
+from .models import Location
+
+
+def home(request):
+    return render(request, 'home.html', geomap_context(Location.objects.all()))
+```
+
+On the root page of the site, a map with markers in the locations of these objects will be displayed.
+
+The `geomap_context` function accepts additional named arguments to customize the properties of the map.
+
+- map_longitude: map center longitude, default is "0.0"
+- map_latitude: map center latitude, default is "0.0"
+- map_zoom: map zoom level, default is "1"
+- map_height: vertical map size, default is "500px"
+
+## List of objects on the map in the admin panel
+
+To display a map with objects in the site admin panel in the admin settings file `admin.py`, when registering a model, you need to use the` django_admin_geomap.ModelAdmin` class.
 
 ```python
 # admin.py
@@ -96,7 +142,7 @@ admin.site.register(Location, ModelAdmin)
 
 After making these changes, in the admin panel on the page with a list of `Location` objects, a map with markers at the locations of these objects will be displayed under the table.
 
-## Displaying the object on the map in the edit form
+## Displaying the object on the map in the edit form in the admin panel
 
 To display an object on the map in the edit/view form, you must additionally specify the field IDs in the Django form, which contain the longitude and latitude values of the object.
 
@@ -145,10 +191,13 @@ class Location(models.Model, GeoItem):
 
 ### Text in a pop-up block when you click on a marker on the map
 
-The properties `geomap_popup_view` and `geomap_popup_edit` for the model class set the HTML code that is used in the pop-up block when the mouse is clicked on the marker on the map.
-The `geomap_popup_view` property specifies the code for a user without permission to edit the object, and the` geomap_popup_edit` property - for a user who has permission to edit.
+When you click on a marker on the map, a pop-up panel is displayed. The HTML code used in this panel can be set by defining three properties on the model class.
 
-By default, both properties return the string representation of the object.
+- `geomap_popup_common` displayed in regular views
+- `geomap_popup_view` displayed in the admin panel for a user without permission to edit the object
+- `geomap_popup_edit` displayed in the admin panel for a user who has permission to edit
+
+By default, all these properties return the string representation of the object.
 
 ```python
 # models.py
@@ -164,11 +213,15 @@ class Location(models.Model, GeoItem):
     @property
     def geomap_popup_edit(self):
         return self.geomap_popup_view
+
+    @property
+    def geomap_popup_common(self):
+        return self.geomap_popup_view
 ```
 
 ### New object icon
 
-The `geomap_new_feature_icon` property of the `django_admin_geomap.ModelAdmin` class sets the path to the marker icon when adding a new object.
+The `geomap_new_feature_icon` property of the `django_admin_geomap.ModelAdmin` class sets the path to the marker icon when adding a new object in the admin panel.
 
 ```python
 # admin.py
@@ -178,7 +231,7 @@ class Admin(ModelAdmin):
     geomap_new_feature_icon = "/myicon.png"
 ```
 
-### Default map zoom level and center of the map when displaying a list of objects
+### Default map zoom level and center of the map when displaying a list of objects in the admin panel
 
 You can change the zoom level and position of the center of the map by setting the properties `geomap_default_longitude`,` geomap_default_latitude` and `geomap_default_zoom` in the class `django_admin_geomap.ModelAdmin`.
 
@@ -194,7 +247,7 @@ class Admin(ModelAdmin):
     geomap_default_zoom = "3"
 ```
 
-### Default map zoom level when editing/viewing an object
+### Default map zoom level when editing/viewing an object in the admin panel
 
 In object edit form the center of the map coincides with the location of the object. The zoom level of the map can be set by using the `geomap_item_zoom` property of the `django_admin_geomap.ModelAdmin` class.
 
@@ -208,7 +261,7 @@ class Admin(ModelAdmin):
     geomap_item_zoom = "10"
 ```
 
-### Vertical map size
+### Vertical map size in the admin panel
 
 When displayed, the map occupies the maximum possible horizontal size. The vertical size can be set via the `geomap_height` property of the `django_admin_geomap.ModelAdmin` class.
 The value must be a string valid in the CSS style definition.

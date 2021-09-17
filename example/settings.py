@@ -41,6 +41,7 @@ TEMPLATES = [
     'BACKEND': 'django.template.backends.django.DjangoTemplates',
     'DIRS': [
       os.path.join(BASE_DIR, 'django_admin_geomap', 'templates'),
+      os.path.join(BASE_DIR, 'example'),
     ],
     'APP_DIRS': True,
     'OPTIONS': {
