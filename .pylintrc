@@ -131,6 +131,7 @@ disable=print-statement,
         import-outside-toplevel,
         consider-using-with,
         deprecated-module,
+        consider-using-f-string,
         too-few-public-methods
 
 # Enable the message, report, category or checker with the given id(s). You can
