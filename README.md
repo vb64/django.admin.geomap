@@ -123,7 +123,7 @@ On the root page of the site, a map with markers in the locations of these objec
 The `geomap_context` function accepts additional named arguments to customize the properties of the map.
 
 - map_longitude: map center longitude, default is "0.0"
-- map_latitude: : map center latitude, default is "0.0"
+- map_latitude: map center latitude, default is "0.0"
 - map_zoom: map zoom level, default is "1"
 - map_height: vertical map size, default is "500px"
 
