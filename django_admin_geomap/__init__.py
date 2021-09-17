@@ -18,6 +18,11 @@ class GeoItem:
         return self.geomap_popup_view
 
     @property
+    def geomap_popup_common(self):
+        """Html code for display in marker popup at the map for common views."""
+        return self.geomap_popup_view
+
+    @property
     def geomap_icon(self):
         """Full url for marker icon at the map."""
         return self.default_icon
