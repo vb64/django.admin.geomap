@@ -122,10 +122,10 @@ On the root page of the site, a map with markers in the locations of these objec
 
 The `geomap_context` function accepts additional named arguments to customize the properties of the map.
 
-- map_longitude: map center longitude, default is "0.0"
-- map_latitude: map center latitude, default is "0.0"
-- map_zoom: map zoom level, default is "1"
-- map_height: vertical map size, default is "500px"
+-   map_longitude: map center longitude, default is "0.0"
+-   map_latitude: map center latitude, default is "0.0"
+-   map_zoom: map zoom level, default is "1"
+-   map_height: vertical map size, default is "500px"
 
 ## List of objects on the map in the admin panel
 
@@ -193,9 +193,9 @@ class Location(models.Model, GeoItem):
 
 When you click on a marker on the map, a pop-up panel is displayed. The HTML code used in this panel can be set by defining three properties on the model class.
 
-- `geomap_popup_common` displayed in regular views
-- `geomap_popup_view` displayed in the admin panel for a user without permission to edit the object
-- `geomap_popup_edit` displayed in the admin panel for a user who has permission to edit
+-   `geomap_popup_common` displayed in regular views
+-   `geomap_popup_view` displayed in the admin panel for a user without permission to edit the object
+-   `geomap_popup_edit` displayed in the admin panel for a user who has permission to edit
 
 By default, all these properties return the string representation of the object.
 
