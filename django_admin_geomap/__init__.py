@@ -2,6 +2,21 @@
 from django.contrib import admin
 
 
+class Key:
+    """Parameters for Django template."""
+
+    CenterLongitude = 'geomap_longitude'
+    CenterLatitude = 'geomap_latitude'
+    MapZoom = 'geomap_zoom'
+    MapHeight = 'geomap_height'
+    IsEditor = 'geomap_edit'
+    NewIcon = 'geomap_new_feature_icon'
+    IsForm = 'geomap_form'
+    FieldLongitude = 'geomap_field_longitude'
+    FieldLatitude = 'geomap_field_latitude'
+    MapItems = 'geomap_items'
+
+
 class GeoItem:
     """Mixing class for model with geomap support."""
 
@@ -55,28 +70,28 @@ class ModelAdmin(admin.ModelAdmin):
     change_form_template = 'geomap/change_form.html'
     change_list_template = 'geomap/changelist.html'
 
-    def set_common(self, request, extra_context):
+    def set_common(self, request, context):
         """Set common map properties."""
-        extra_context = extra_context or {}
-        extra_context.update(geomap_context(
+        context = context or {}
+        context.update(geomap_context(
           None,
           map_longitude=self.geomap_default_longitude,
           map_latitude=self.geomap_default_latitude,
           map_zoom=self.geomap_default_zoom,
           map_height=self.geomap_height
         ))
-        extra_context['geomap_edit'] = self.has_change_permission(request)
-        extra_context['geomap_new_feature_icon'] = self.geomap_new_feature_icon
-        extra_context['geomap_form'] = self.geomap_field_longitude and self.geomap_field_latitude
-        extra_context['geomap_field_longitude'] = self.geomap_field_longitude
-        extra_context['geomap_field_latitude'] = self.geomap_field_latitude
+        context[Key.IsEditor] = self.has_change_permission(request)
+        context[Key.NewIcon] = self.geomap_new_feature_icon
+        context[Key.IsForm] = self.geomap_field_longitude and self.geomap_field_latitude
+        context[Key.FieldLongitude] = self.geomap_field_longitude
+        context[Key.FieldLatitude] = self.geomap_field_latitude
 
-        return extra_context
+        return context
 
     def changelist_view(self, request, extra_context=None):
         """Add geomap data for show at the map."""
         extra_context = self.set_common(request, extra_context)
-        extra_context['geomap_items'] = self.get_queryset(request)
+        extra_context[Key.MapItems] = self.get_queryset(request)
 
         return super().changelist_view(request, extra_context=extra_context)
 
@@ -86,10 +101,10 @@ class ModelAdmin(admin.ModelAdmin):
         item = list(self.get_queryset(request).filter(id=int(object_id)))[0]
 
         if item.geomap_longitude and item.geomap_latitude:
-            extra_context['geomap_items'] = [item]
-            extra_context['geomap_longitude'] = item.geomap_longitude
-            extra_context['geomap_latitude'] = item.geomap_latitude
-            extra_context['geomap_zoom'] = self.geomap_item_zoom
+            extra_context[Key.MapItems] = [item]
+            extra_context[Key.CenterLongitude] = item.geomap_longitude
+            extra_context[Key.CenterLatitude] = item.geomap_latitude
+            extra_context[Key.MapZoom] = self.geomap_item_zoom
 
         return super().change_view(request, object_id, form_url, extra_context=extra_context)
 
@@ -107,9 +122,9 @@ def geomap_context(
 ):
     """Fill context with geomap defaults."""
     return {
-      'geomap_longitude': map_longitude,
-      'geomap_latitude': map_latitude,
-      'geomap_zoom': map_zoom,
-      'geomap_height': map_height,
-      'geomap_items': objects or []
+      Key.CenterLongitude: map_longitude,
+      Key.CenterLatitude: map_latitude,
+      Key.MapZoom: map_zoom,
+      Key.MapHeight: map_height,
+      Key.MapItems: objects or []
     }
