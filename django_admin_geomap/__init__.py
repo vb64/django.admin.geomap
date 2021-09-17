@@ -58,7 +58,13 @@ class ModelAdmin(admin.ModelAdmin):
     def set_common(self, request, extra_context):
         """Set common map properties."""
         extra_context = extra_context or {}
-        extra_context.update(geomap_context(None))
+        extra_context.update(geomap_context(
+          None,
+          map_longitude=self.geomap_default_longitude,
+          map_latitude=self.geomap_default_latitude,
+          map_zoom=self.geomap_default_zoom,
+          map_height=self.geomap_height
+        ))
         extra_context['geomap_edit'] = self.has_change_permission(request)
         extra_context['geomap_new_feature_icon'] = self.geomap_new_feature_icon
         extra_context['geomap_form'] = self.geomap_field_longitude and self.geomap_field_latitude
@@ -94,10 +100,10 @@ class ModelAdmin(admin.ModelAdmin):
 
 def geomap_context(
   objects,
-  map_longitude=ModelAdmin.geomap_default_longitude,
-  map_latitude=ModelAdmin.geomap_default_latitude,
-  map_zoom=ModelAdmin.geomap_default_zoom,
-  map_height=ModelAdmin.geomap_height
+  map_longitude="0.0",
+  map_latitude="0.0",
+  map_zoom="1",
+  map_height="500px"
 ):
     """Fill context with geomap defaults."""
     return {
