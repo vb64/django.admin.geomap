@@ -189,7 +189,7 @@ class Location(models.Model, GeoItem):
         return self.default_icon
 ```
 
-### Text in a pop-up block when you click on a marker on the map
+### Text in a pop-up panel when you click on a marker on the map
 
 When you click on a marker on the map, a pop-up panel is displayed. The HTML code used in this panel can be set by defining three properties on the model class.
 
