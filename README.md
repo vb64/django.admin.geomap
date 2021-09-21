@@ -103,7 +103,7 @@ Hello, OpenStreetMap!
 ```
 
 In the view function, you need to pass to this template the context formed by calling the `geomap_context` function.
-As a required argument to the function, you need to pass an iterable sequence of objects to display on the map.
+As a required argument to the function, you need to pass an iterable sequence of objects derived from the class `django_admin_geomap.GeoItem` to display on the map.
 For example a list or Django QuerySet.
 
 ```python
