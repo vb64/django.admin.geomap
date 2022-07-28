@@ -100,7 +100,7 @@ class ModelAdmin(admin.ModelAdmin):
         # Add the geomap data to the context
         extra_context = self.set_common(request, extra_context)
         extra_context[Key.MapItems] = change_list_queryset
-        response.context_data |= extra_context      # add to existing context
+        response.context_data.update(extra_context)      # add to existing context
 
         return response
 
