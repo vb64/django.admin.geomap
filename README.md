@@ -273,3 +273,43 @@ from django_admin_geomap import ModelAdmin
 class Admin(ModelAdmin):
     geomap_height = "300px"
 ```
+
+## Usage example
+
+You can run an example of using the library running on your local host.
+
+On the Windows platform, you must first install the following programs.
+
+- [Python3](https://www.python.org/downloads/release/python-3712/)
+- GNU [Unix Utils](http://unxutils.sourceforge.net/) for operations via makefile
+- [Git for Windows](https://git-scm.com/download/win) to access the source code repository.
+
+Then clone the repository and run the installation, specifying the path to Python 3.
+
+```bash
+$ git clone git@github.com:vb64/django.admin.geomap.git
+$ cd django.admin.geomap
+$ make setup PYTHON_BIN=/usr/bin/python3
+```
+
+Collect media files and create a database.
+
+```bash
+$ make static
+$ make db
+```
+
+Create a database superuser by specifying a login and password for it.
+
+```bash
+$ make superuser
+```
+
+Run example.
+
+```bash
+$ make example
+```
+
+Open `http://127.0.0.1:8000/` in a browser to view the example site.
+To enter the admin panel `http://127.0.0.1:8000/admin/` you need to use the login and password that were set when creating the superuser.
