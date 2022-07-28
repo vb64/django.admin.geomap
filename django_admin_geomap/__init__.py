@@ -89,8 +89,7 @@ class ModelAdmin(admin.ModelAdmin):
         return context
 
     def changelist_view(self, request, extra_context=None):
-        """Add geomap data to show at the map"""
-
+        """Add geomap data to show at the map."""
         # Obtain original response from Django
         response = super().changelist_view(request, extra_context=extra_context)
 
@@ -100,7 +99,7 @@ class ModelAdmin(admin.ModelAdmin):
         # Add the geomap data to the context
         extra_context = self.set_common(request, extra_context)
         extra_context[Key.MapItems] = change_list_queryset
-        response.context_data.update(extra_context)      # add to existing context
+        response.context_data.update(extra_context)  # add to existing context
 
         return response
 
