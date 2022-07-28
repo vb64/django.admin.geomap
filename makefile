@@ -1,4 +1,4 @@
-.PHONY: all setup static db
+.PHONY: all setup static db example superuser
 # make tests >debug.log 2>&1
 ifeq ($(OS),Windows_NT)
 PYTHON = venv/Scripts/python.exe
@@ -42,6 +42,12 @@ pep257:
 tests: flake8 pep257 lint static db
 	$(PYTEST) --durations=5 $(TESTS)
 	$(COVERAGE) html --skip-covered
+
+example:
+	$(MANAGE) runserver $(SETTINGS)
+
+superuser:
+	$(MANAGE) createsuperuser $(SETTINGS)
 
 db:
 	$(MIGRATE) example
