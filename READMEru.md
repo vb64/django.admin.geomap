@@ -278,35 +278,35 @@ class Admin(ModelAdmin):
 
 На платформе Windows для этого нужно предварительно установить следующие программы.
 
-- [Python3](https://www.python.org/downloads/release/python-3712/)
-- GNU [Unix Utils](http://unxutils.sourceforge.net/) для операций через makefile
-- [Git for Windows](https://git-scm.com/download/win) для доступа к репозитарию исходных кодов.
+-   [Python3](https://www.python.org/downloads/release/python-3712/)
+-   GNU [Unix Utils](http://unxutils.sourceforge.net/) для операций через makefile
+-   [Git for Windows](https://git-scm.com/download/win) для доступа к репозитарию исходных кодов.
 
 Затем склонировать репозитарий и запустить установку, указав путь на Python 3.
 
 ```bash
-$ git clone git@github.com:vb64/django.admin.geomap.git
-$ cd django.admin.geomap
-$ make setup PYTHON_BIN=/usr/bin/python3
+git clone git@github.com:vb64/django.admin.geomap.git
+cd django.admin.geomap
+make setup PYTHON_BIN=/usr/bin/python3
 ```
 
 Собрать файлы медиа и создать базу данных.
 
 ```bash
-$ make static
-$ make db
+make static
+make db
 ```
 
 Создать суперюзера базы данных, указав для него логин и пароль.
 
 ```bash
-$ make superuser
+make superuser
 ```
 
 Запустить пример.
 
 ```bash
-$ make example
+make example
 ```
 
 Открыть в браузере адрес `http://127.0.0.1:8000/` для просмотра сайта примера.
