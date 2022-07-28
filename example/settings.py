@@ -20,6 +20,7 @@ INSTALLED_APPS = (
   'django.contrib.sessions',
   'django.contrib.messages',
   'django.contrib.staticfiles',
+  'django_admin_geomap',
   'example',
 )
 
@@ -39,10 +40,6 @@ ROOT_URLCONF = 'example.urls'
 TEMPLATES = [
   {
     'BACKEND': 'django.template.backends.django.DjangoTemplates',
-    'DIRS': [
-      os.path.join(BASE_DIR, 'django_admin_geomap', 'templates'),
-      os.path.join(BASE_DIR, 'example'),
-    ],
     'APP_DIRS': True,
     'OPTIONS': {
       'context_processors': [

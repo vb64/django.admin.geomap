@@ -25,19 +25,17 @@ pip install django-admin-geomap
 
 ## Изменения в settings.py
 
-Для подключения DjangoAdminGeomap к вашему проекту нужно добавить в файл `settings.py` в ключ `TEMPLATES` путь на каталог `templates` библиотеки.
+Для подключения DjangoAdminGeomap к вашему проекту в файле `settings.py` нужно добавить `'django_admin_geomap'` в список `INSTALLED_APPS`.
 
 ```python
-TEMPLATES = [
-  {
-    'DIRS': ['path/to/installed/django_admin_geomap/templates'],
-  },
-]
+
+INSTALLED_APPS = (
+
+...
+
+  'django_admin_geomap',
+)
 ```
-
-Пример такого подключения можно посмотреть в файле [example/settings.py](https://github.com/vb64/django.admin.geomap/blob/3fb078d231517f368158ff4fd2c63c11092af979/example/settings.py#L43).
-
-Включать библиотеку в список `INSTALLED_APPS` в `settings.py` не нужно.
 
 ## Исходные данные
 
