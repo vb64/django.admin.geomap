@@ -29,19 +29,17 @@ After installation, you need to plug the library into your Django project by mak
 
 ## Changes to settings.py
 
-To connect DjangoAdminGeomap to your project, you need to add to the file `settings.py` in the key` TEMPLATES` the path to the directory `templates` of the library.
+To connect DjangoAdminGeomap to your project, add `'django_admin_geomap'` to the `INSTALLED_APPS` list  in your `settings.py` file.
 
 ```python
-TEMPLATES = [
-  {
-    'DIRS': ['path/to/installed/django_admin_geomap/templates'],
-  },
-]
+
+INSTALLED_APPS = (
+
+...
+
+  'django_admin_geomap',
+)
 ```
-
-An example of such a connection can be found in the file [example/settings.py](https://github.com/vb64/django.admin.geomap/blob/3fb078d231517f368158ff4fd2c63c11092af979/example/settings.py#L43).
-
-It is not necessary to include the library in the `INSTALLED_APPS` list in` settings.py`.
 
 ## Initial data
 
