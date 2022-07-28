@@ -1,4 +1,4 @@
-.PHONY: all setup static db example
+.PHONY: all setup static db example superuser
 # make tests >debug.log 2>&1
 ifeq ($(OS),Windows_NT)
 PYTHON = venv/Scripts/python.exe
@@ -45,6 +45,9 @@ tests: flake8 pep257 lint static db
 
 example:
 	$(MANAGE) runserver $(SETTINGS)
+
+superuser:
+	$(MANAGE) createsuperuser $(SETTINGS)
 
 db:
 	$(MIGRATE) example
