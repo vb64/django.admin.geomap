@@ -70,6 +70,7 @@ setup: setup_python setup_pip
 setup_pip:
 	$(PIP) --upgrade pip
 	$(PIP) -r $(TESTS)/requirements.txt
+	$(PIP) -r $(TESTS)/django3.txt
 	$(PIP) -r deploy.txt
 
 setup_python:
