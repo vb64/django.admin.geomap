@@ -1,5 +1,5 @@
 # https://docs.github.com/en/free-pro-team@latest/actions/guides/building-and-testing-python
-name: django3
+name: django4
 
 on:
   push:
@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['3.7', '3.8', '3.9', '3.10']
+        python-version: ['3.8', '3.9', '3.10']
 
     steps:
     - uses: actions/checkout@v2
@@ -29,7 +29,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r tests/requirements.txt
-        pip install -r tests/django3.txt
+        pip install -r tests/django4.txt
 
     - name: flake8
       run: |
