@@ -26,10 +26,6 @@ The source of the cartographic data is the data of the [OpenStreetMap project](h
 pip install django-admin-geomap
 ```
 
-After installation, you need to plug the library into your Django project by making changes to the `settings.py` file.
-
-## Changes to settings.py
-
 To connect DjangoAdminGeomap to your project, add `'django_admin_geomap'` to the `INSTALLED_APPS` list  in your `settings.py` file.
 
 ```python
@@ -44,7 +40,7 @@ INSTALLED_APPS = (
 
 ## Initial data
 
-Let's say we have a table in the database, the records of which contain data about coordinates.
+Let's say we have a table in the database. The records contain data about coordinates.
 
 ```python
 # models.py
