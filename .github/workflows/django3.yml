@@ -1,5 +1,5 @@
 # https://docs.github.com/en/free-pro-team@latest/actions/guides/building-and-testing-python
-name: geomap-tests
+name: django3
 
 on:
   push:
