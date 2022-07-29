@@ -10,13 +10,15 @@ PTEST = ./venv/bin/pytest
 COVERAGE = ./venv/bin/coverage
 endif
 
+DJANGO_VER = 4
+
 SOURCE = django_admin_geomap
 TESTS = tests
 CFG_TEST = example.settings
 
 FLAKE8 = $(PYTHON) -m flake8 --max-line-length=120
 PYLINT = $(PYTHON) -m pylint --init-hook="import sys;sys.path.insert(0, './$(SOURCE)');sys.path.insert(0, './')" --load-plugins pylint_django --django-settings-module=example.settings --load-plugins=pylint.extensions.mccabe --max-complexity=10
-PYTEST = $(PTEST) --cov=$(SOURCE) --cov-report term:skip-covered
+PYTEST = $(PTEST) -c pytest$(DJANGO_VER).ini --cov=$(SOURCE) --cov-report term:skip-covered
 MANAGE = $(PYTHON) manage.py
 PIP = $(PYTHON) -m pip install
 SETTINGS = --settings $(CFG_TEST)
@@ -70,7 +72,7 @@ setup: setup_python setup_pip
 setup_pip:
 	$(PIP) --upgrade pip
 	$(PIP) -r $(TESTS)/requirements.txt
-	$(PIP) -r $(TESTS)/django3.txt
+	$(PIP) -r $(TESTS)/django$(DJANGO_VER).txt
 	$(PIP) -r deploy.txt
 
 setup_python:
