@@ -277,7 +277,7 @@ class Admin(ModelAdmin):
 
 ## Usage example
 
-You can run an example of using the library running on your local host.
+You can run an example of using the library on your local host.
 
 On the Windows platform, you must first install the following programs.
 
