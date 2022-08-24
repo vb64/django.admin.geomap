@@ -25,7 +25,7 @@ class GeoItem:
     @property
     def geomap_popup_view(self):
         """Html code for display in marker popup at the map for RO users."""
-        return "<strong>{}</strong>".format(str(selff))
+        return "<strong>{}</strong>".format(str(self))
 
     @property
     def geomap_popup_edit(self):
