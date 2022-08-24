@@ -49,4 +49,6 @@ jobs:
         python manage.py makemigrations --settings example.settings example
         python manage.py migrate --settings example.settings
         pytest -c pytest3.ini --cov=django_admin_geomap --cov-report xml --cov-report term:skip-covered --durations=5 tests
-        python-codacy-coverage -r coverage.xml
+        if [ "$CODACY_PROJECT_TOKEN" != "" ]; then
+          python-codacy-coverage -r coverage.xml
+        fi
