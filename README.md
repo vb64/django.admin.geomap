@@ -53,7 +53,7 @@ class Location(models.Model):
 
 ```
 
-On the main page of the site and when working with this table in the admin panel, we want to see a map with objects from this table located on it.
+On the main page of the site and when working with this table in the admin panel, we want to see objects from this table located on the map.
 
 ## Main page with a list of objects on the map
 
