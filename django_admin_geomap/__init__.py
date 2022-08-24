@@ -18,14 +18,14 @@ class Key:
 
 
 class GeoItem:
-    """Mixing class for model with geomap support."""
+    """Mixing class for model with geomap support"""
 
     default_icon = "https://maps.google.com/mapfiles/ms/micons/red.png"
 
     @property
     def geomap_popup_view(self):
         """Html code for display in marker popup at the map for RO users."""
-        return "<strong>{}</strong>".format(str(self))
+        return "<strong>{}</strong>".format(str(selff))
 
     @property
     def geomap_popup_edit(self):
