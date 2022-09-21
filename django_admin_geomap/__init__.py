@@ -15,6 +15,7 @@ class Key:
     FieldLongitude = 'geomap_field_longitude'
     FieldLatitude = 'geomap_field_latitude'
     MapItems = 'geomap_items'
+    AutoZoom = 'geomap_autozoom'
 
 
 class GeoItem:
@@ -62,6 +63,7 @@ class ModelAdmin(admin.ModelAdmin):
     geomap_default_zoom = "1"
     geomap_item_zoom = "13"
     geomap_height = "500px"
+    geomap_autozoom = False
 
     geomap_field_longitude = ""
     geomap_field_latitude = ""
@@ -85,6 +87,7 @@ class ModelAdmin(admin.ModelAdmin):
         context[Key.IsForm] = self.geomap_field_longitude and self.geomap_field_latitude
         context[Key.FieldLongitude] = self.geomap_field_longitude
         context[Key.FieldLatitude] = self.geomap_field_latitude
+        context[Key.AutoZoom] = self.geomap_autozoom
 
         return context
 
