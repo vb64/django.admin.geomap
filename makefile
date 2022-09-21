@@ -17,7 +17,7 @@ TESTS = tests
 CFG_TEST = example.settings
 
 FLAKE8 = $(PYTHON) -m flake8 --max-line-length=120
-PYLINT = $(PYTHON) -m pylint --init-hook="import sys;sys.path.insert(0, './$(SOURCE)');sys.path.insert(0, './')" --load-plugins pylint_django --django-settings-module=example.settings --load-plugins=pylint.extensions.mccabe --max-complexity=10
+PYLINT = $(PYTHON) -m pylint --django-settings-module=example.settings --max-complexity=10
 PYTEST = $(PTEST) -c pytest$(DJANGO_VER).ini --cov=$(SOURCE) --cov-report term:skip-covered
 MANAGE = $(PYTHON) manage.py
 PIP = $(PYTHON) -m pip install
