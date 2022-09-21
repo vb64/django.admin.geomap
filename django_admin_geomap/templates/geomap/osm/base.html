@@ -65,6 +65,11 @@ function setIconPointer() {
   });
 }
 
+// https://gis.stackexchange.com/questions/133360/how-to-get-the-latitude-longitude-of-the-4-corners-of-the-map-being-displayed
+// var glbox = map.getView().calculateExtent(map.getSize());
+// box: 4 numbers to define: top, bottom, left, and right.
+// var box = ol.proj.transformExtent(glbox,'EPSG:3857','EPSG:4326');
+
 {% for geoitem in geomap_items %}
 
 if (!styles.has("{{ geoitem.geomap_icon }}")) {
