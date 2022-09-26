@@ -43,8 +43,52 @@ function setIconPointer() {
   });
 }
 
-function calc_zoom(lon_center, lat_center, vector_layer) {
-  return 5;
+function get_extents(map_zoom, center, vector_layer) {
+  var lon_center=center[0], lat_center=center[1];
+
+  var view = new ol.View({
+    center: ol.proj.fromLonLat([lon_center, lat_center]),
+    maxZoom: 19,
+    minZoom: 1,
+    zoom: map_zoom
+  });
+
+  var map = new ol.Map({
+    layers: [new ol.layer.Tile({
+      source: new ol.source.OSM()
+    }), vector_layer, ],
+  
+    target: 'map',
+    controls: ol.control.defaults(),
+    view: view
+  
+    });
+
+  return ol.proj.transformExtent(
+    map.getView().calculateExtent(map.getSize()),
+    'EPSG:3857',
+    'EPSG:4326'
+  );
+}
+
+function is_inside(box, ext) {
+  var lon_box_max=box[0], lon_box_min=box[1], lat_box_max=box[2], lat_box_min=box[3];
+  var lon_ext_max=ext[0], lon_ext_min=ext[1], lat_ext_max=ext[2], lat_ext_min=ext[3];
+
+  return false;
+}
+
+function calc_zoom(autozoom, center, box, vector_layer) {
+  console.log('# box', box);
+  console.log('# center', center);
+  for(i = autozoom; i > 0; i--) {
+    var extents = get_extents(i, center, vector_layer);
+    console.log('#zoom', i, 'extents', extents);
+    if (is_inside(box, extents)) {
+      return i;
+    }
+  }
+  return 0;
 }
 
 var lon_min=180.0, lon_max=-180.0, lat_min=180.0, lat_max=-180.0;
@@ -65,7 +109,7 @@ if (!styles.has("{{ geoitem.geomap_icon }}")) {
   styles.set("{{ geoitem.geomap_icon }}", style);
 }
 
-console.log('#lon', {{ geoitem.geomap_longitude }}, 'lat', {{ geoitem.geomap_latitude }});
+// console.log('#lon', {{ geoitem.geomap_longitude }}, 'lat', {{ geoitem.geomap_latitude }});
 if (lon_min > {{ geoitem.geomap_longitude }}) {lon_min = {{ geoitem.geomap_longitude }};}
 if (lon_max < {{ geoitem.geomap_longitude }}) {lon_max = {{ geoitem.geomap_longitude }};}
 if (lat_min > {{ geoitem.geomap_latitude }}) {lat_min = {{ geoitem.geomap_latitude }};}
@@ -97,8 +141,8 @@ console.log('lat', lat_min, 'x', lat_max);
 console.log('lon_center', lon_center);
 console.log('lat_center', lat_center);
 
-if ({{ geomap_autozoom }}) {
-  map_zoom = calc_zoom(lon_center, lat_center, vectorLayer);
+if ({{ geomap_autozoom }} > 0) {
+  map_zoom = calc_zoom({{ geomap_autozoom }}, [lon_center, lat_center], [lon_max, lon_min, lat_max, lat_min], vectorLayer);
   } else {
   lon_center = {{ geomap_longitude }};
   lat_center = {{ geomap_latitude }};
@@ -109,6 +153,8 @@ if ({{ geomap_autozoom }}) {
 // var glbox = map.getView().calculateExtent(map.getSize());
 // box: 4 numbers to define: top, bottom, left, and right.
 // var box = ol.proj.transformExtent(glbox,'EPSG:3857','EPSG:4326');
+
+console.log('map_zoom', map_zoom);
 
 var view = new ol.View({
   center: ol.proj.fromLonLat([lon_center, lat_center]),
@@ -132,9 +178,9 @@ const map = new ol.Map({
 
 });
 
-var glbox = map.getView().calculateExtent(map.getSize());
-var box = ol.proj.transformExtent(glbox,'EPSG:3857','EPSG:4326');
-console.log('box', box);
+// var glbox = map.getView().calculateExtent(map.getSize());
+// var box = ol.proj.transformExtent(glbox,'EPSG:3857','EPSG:4326');
+// console.log('box', box);
 
 {% if geomap_form %}
 

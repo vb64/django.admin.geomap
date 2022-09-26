@@ -63,7 +63,7 @@ class ModelAdmin(admin.ModelAdmin):
     geomap_default_zoom = "1"
     geomap_item_zoom = "13"
     geomap_height = "500px"
-    geomap_autozoom = False
+    geomap_autozoom = "-1"
 
     geomap_field_longitude = ""
     geomap_field_latitude = ""
@@ -129,7 +129,7 @@ def geomap_context(
   map_longitude="0.0",
   map_latitude="0.0",
   map_zoom="1",
-  auto_zoom=False,
+  auto_zoom="-1",
   map_height="500px"
 ):
     """Fill context with geomap defaults."""
@@ -137,7 +137,7 @@ def geomap_context(
       Key.CenterLongitude: map_longitude,
       Key.CenterLatitude: map_latitude,
       Key.MapZoom: map_zoom,
-      Key.AutoZoom: 'true' if auto_zoom else 'false',
+      Key.AutoZoom: auto_zoom,
       Key.MapHeight: map_height,
       Key.MapItems: objects or []
     }
