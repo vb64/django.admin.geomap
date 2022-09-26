@@ -21,28 +21,6 @@ var vectorLayer = new ol.layer.Vector({
   source: vectorSource
 });
 
-var view = new ol.View({
-  center: ol.proj.fromLonLat([{{ geomap_longitude }}, {{ geomap_latitude }}]),
-  maxZoom: 19,
-  minZoom: 1,
-  zoom: {{ geomap_zoom }}
-});
-
-const map = new ol.Map({
-  layers: [new ol.layer.Tile({
-    source: new ol.source.OSM()
-    // source: new ol.source.OSM({
-    //   key: 'myKey',
-    //   crossOrigin: ''
-    // })
-  }), vectorLayer, ],
-
-  target: 'map',
-  controls: ol.control.defaults(),
-  view: view
-
-});
-
 var styles = new Map();
 
 function setMarker(coordinate, info_html, icon) {
@@ -64,11 +42,6 @@ function setIconPointer() {
     this.getTargetElement().style.cursor = (hit) ? 'pointer' : '';
   });
 }
-
-// https://gis.stackexchange.com/questions/133360/how-to-get-the-latitude-longitude-of-the-4-corners-of-the-map-being-displayed
-// var glbox = map.getView().calculateExtent(map.getSize());
-// box: 4 numbers to define: top, bottom, left, and right.
-// var box = ol.proj.transformExtent(glbox,'EPSG:3857','EPSG:4326');
 
 {% for geoitem in geomap_items %}
 
@@ -101,6 +74,39 @@ geoitem_edit = setMarker(
 );
 
 {% endfor %}
+
+console.log('geomap_autozoom', {{ geomap_autozoom }});
+
+// https://gis.stackexchange.com/questions/133360/how-to-get-the-latitude-longitude-of-the-4-corners-of-the-map-being-displayed
+// var glbox = map.getView().calculateExtent(map.getSize());
+// box: 4 numbers to define: top, bottom, left, and right.
+// var box = ol.proj.transformExtent(glbox,'EPSG:3857','EPSG:4326');
+
+var view = new ol.View({
+  center: ol.proj.fromLonLat([{{ geomap_longitude }}, {{ geomap_latitude }}]),
+  maxZoom: 19,
+  minZoom: 1,
+  zoom: {{ geomap_zoom }}
+});
+
+const map = new ol.Map({
+  layers: [new ol.layer.Tile({
+    source: new ol.source.OSM()
+    // source: new ol.source.OSM({
+    //   key: 'myKey',
+    //   crossOrigin: ''
+    // })
+  }), vectorLayer, ],
+
+  target: 'map',
+  controls: ol.control.defaults(),
+  view: view
+
+});
+
+var glbox = map.getView().calculateExtent(map.getSize());
+var box = ol.proj.transformExtent(glbox,'EPSG:3857','EPSG:4326');
+console.log('box', box);
 
 {% if geomap_form %}
 

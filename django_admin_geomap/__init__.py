@@ -137,7 +137,7 @@ def geomap_context(
       Key.CenterLongitude: map_longitude,
       Key.CenterLatitude: map_latitude,
       Key.MapZoom: map_zoom,
-      Key.AutoZoom: auto_zoom,
+      Key.AutoZoom: 'true' if auto_zoom else 'false',
       Key.MapHeight: map_height,
       Key.MapItems: objects or []
     }
