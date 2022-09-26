@@ -277,7 +277,7 @@ You can run an example of using the library on your local host.
 
 On the Windows platform, you must first install the following programs.
 
--   [Python3](https://www.python.org/downloads/release/python-3712/)
+-   [Python3](https://www.python.org/downloads/release/python-3810/)
 -   GNU [Unix Utils](http://unxutils.sourceforge.net/) for operations via makefile
 -   [Git for Windows](https://git-scm.com/download/win) to access the source code repository.
 

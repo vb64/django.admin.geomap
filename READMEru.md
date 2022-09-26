@@ -274,7 +274,7 @@ class Admin(ModelAdmin):
 
 На платформе Windows для этого нужно предварительно установить следующие программы.
 
--   [Python3](https://www.python.org/downloads/release/python-3712/)
+-   [Python3](https://www.python.org/downloads/release/python-3810/)
 -   GNU [Unix Utils](http://unxutils.sourceforge.net/) для операций через makefile
 -   [Git for Windows](https://git-scm.com/download/win) для доступа к репозитарию исходных кодов.
 
