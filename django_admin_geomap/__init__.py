@@ -80,6 +80,7 @@ class ModelAdmin(admin.ModelAdmin):
           map_longitude=self.geomap_default_longitude,
           map_latitude=self.geomap_default_latitude,
           map_zoom=self.geomap_default_zoom,
+          auto_zoom=self.geomap_autozoom,
           map_height=self.geomap_height
         ))
         context[Key.IsEditor] = self.has_change_permission(request)
@@ -87,7 +88,6 @@ class ModelAdmin(admin.ModelAdmin):
         context[Key.IsForm] = self.geomap_field_longitude and self.geomap_field_latitude
         context[Key.FieldLongitude] = self.geomap_field_longitude
         context[Key.FieldLatitude] = self.geomap_field_latitude
-        context[Key.AutoZoom] = self.geomap_autozoom
 
         return context
 
@@ -129,6 +129,7 @@ def geomap_context(
   map_longitude="0.0",
   map_latitude="0.0",
   map_zoom="1",
+  auto_zoom=False,
   map_height="500px"
 ):
     """Fill context with geomap defaults."""
@@ -136,6 +137,7 @@ def geomap_context(
       Key.CenterLongitude: map_longitude,
       Key.CenterLatitude: map_latitude,
       Key.MapZoom: map_zoom,
+      Key.AutoZoom: auto_zoom,
       Key.MapHeight: map_height,
       Key.MapItems: objects or []
     }
