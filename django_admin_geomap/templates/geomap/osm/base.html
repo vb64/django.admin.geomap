@@ -43,6 +43,12 @@ function setIconPointer() {
   });
 }
 
+function calc_zoom(lon_center, lat_center, vector_layer) {
+  return 5;
+}
+
+var lon_min=180.0, lon_max=-180.0, lat_min=180.0, lat_max=-180.0;
+
 {% for geoitem in geomap_items %}
 
 if (!styles.has("{{ geoitem.geomap_icon }}")) {
@@ -58,6 +64,12 @@ if (!styles.has("{{ geoitem.geomap_icon }}")) {
   });
   styles.set("{{ geoitem.geomap_icon }}", style);
 }
+
+console.log('#lon', {{ geoitem.geomap_longitude }}, 'lat', {{ geoitem.geomap_latitude }});
+if (lon_min > {{ geoitem.geomap_longitude }}) {lon_min = {{ geoitem.geomap_longitude }};}
+if (lon_max < {{ geoitem.geomap_longitude }}) {lon_max = {{ geoitem.geomap_longitude }};}
+if (lat_min > {{ geoitem.geomap_latitude }}) {lat_min = {{ geoitem.geomap_latitude }};}
+if (lat_max < {{ geoitem.geomap_latitude }}) {lat_max = {{ geoitem.geomap_latitude }};}
 
 geoitem_edit = setMarker(
   [{{ geoitem.geomap_longitude }}, {{ geoitem.geomap_latitude }}],
@@ -75,7 +87,23 @@ geoitem_edit = setMarker(
 
 {% endfor %}
 
-console.log('geomap_autozoom', {{ geomap_autozoom }});
+var lon_center = lon_min + (lon_max - lon_min) / 2.0;
+var lat_center = lat_min + (lat_max - lat_min) / 2.0;
+var map_zoom;
+
+console.log('lon', lon_min, 'x', lon_max);
+console.log('lat', lat_min, 'x', lat_max);
+
+console.log('lon_center', lon_center);
+console.log('lat_center', lat_center);
+
+if ({{ geomap_autozoom }}) {
+  map_zoom = calc_zoom(lon_center, lat_center, vectorLayer);
+  } else {
+  lon_center = {{ geomap_longitude }};
+  lat_center = {{ geomap_latitude }};
+  map_zoom = {{ geomap_zoom }};
+}
 
 // https://gis.stackexchange.com/questions/133360/how-to-get-the-latitude-longitude-of-the-4-corners-of-the-map-being-displayed
 // var glbox = map.getView().calculateExtent(map.getSize());
@@ -83,10 +111,10 @@ console.log('geomap_autozoom', {{ geomap_autozoom }});
 // var box = ol.proj.transformExtent(glbox,'EPSG:3857','EPSG:4326');
 
 var view = new ol.View({
-  center: ol.proj.fromLonLat([{{ geomap_longitude }}, {{ geomap_latitude }}]),
+  center: ol.proj.fromLonLat([lon_center, lat_center]),
   maxZoom: 19,
   minZoom: 1,
-  zoom: {{ geomap_zoom }}
+  zoom: map_zoom
 });
 
 const map = new ol.Map({
