@@ -190,9 +190,9 @@ If the list of displayed objects is empty, the autozoom mode is disabled.
 
 If the list contains one object, then the map center is set to the coordinates of this object, and the map scale is set to the value of the autozoom parameter (10 for the examples above).
 
-If the list contains more than one object, the program determines the minimum quadrilateral that contains all the displayed objects.
-The center of the map is set to the coordinates of the center of this quadrilateral.
-The scale of the map is set in such a way as to fit the given quadrilateral with small indents along the edges.
+If the list contains more than one object, the program determines the minimum rectangle that contains all the displayed objects.
+The center of the map is set to the coordinates of the center of this rectangle.
+The scale of the map is set in such a way as to contain the given rectangle with some indents along the edges.
 
 ## Additional customization
 
