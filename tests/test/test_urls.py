@@ -22,7 +22,7 @@ class TestsUrls(TestBase):
         from django.contrib.auth.models import User  # pylint: disable=imported-auth-user
 
         password = 'mypassword'
-        admin = User.objects.create_superuser('admin', 'myemail@test.com', password)
+        admin = User.objects.create_superuser('admin_test_suite', 'myemail@test.com', password)
         self.client.login(username=admin.username, password=password)
 
         response = self.client.get(reverse('admin:index'))

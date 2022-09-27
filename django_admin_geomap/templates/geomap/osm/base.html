@@ -21,28 +21,6 @@ var vectorLayer = new ol.layer.Vector({
   source: vectorSource
 });
 
-var view = new ol.View({
-  center: ol.proj.fromLonLat([{{ geomap_longitude }}, {{ geomap_latitude }}]),
-  maxZoom: 19,
-  minZoom: 1,
-  zoom: {{ geomap_zoom }}
-});
-
-const map = new ol.Map({
-  layers: [new ol.layer.Tile({
-    source: new ol.source.OSM()
-    // source: new ol.source.OSM({
-    //   key: 'myKey',
-    //   crossOrigin: ''
-    // })
-  }), vectorLayer, ],
-
-  target: 'map',
-  controls: ol.control.defaults(),
-  view: view
-
-});
-
 var styles = new Map();
 
 function setMarker(coordinate, info_html, icon) {
@@ -65,6 +43,59 @@ function setIconPointer() {
   });
 }
 
+function get_extents(map_zoom, center, vector_layer) {
+// https://gis.stackexchange.com/questions/133360/how-to-get-the-latitude-longitude-of-the-4-corners-of-the-map-being-displayed
+  var lon_center=center[0], lat_center=center[1];
+
+  var view = new ol.View({
+    center: ol.proj.fromLonLat([lon_center, lat_center]),
+    maxZoom: 19,
+    minZoom: 1,
+    zoom: map_zoom
+  });
+
+  var map = new ol.Map({
+    layers: [new ol.layer.Tile({
+      source: new ol.source.OSM()
+    }), vector_layer, ],
+  
+    target: 'map',
+    controls: ol.control.defaults(),
+    view: view
+  
+    });
+
+  extents = ol.proj.transformExtent(
+    map.getView().calculateExtent(map.getSize()),
+    'EPSG:3857',
+    'EPSG:4326'
+  );
+
+  map.setTarget(null);
+  map = null;
+
+  return extents
+}
+
+function is_inside(box, ext) {
+  var lon_box_min=box[0], lon_box_max=box[1], lat_box_min=box[2], lat_box_max=box[3];
+  var lon_ext_min=ext[0], lon_ext_max=ext[2], lat_ext_min=ext[1], lat_ext_max=ext[3];
+
+  return (lon_box_min > lon_ext_min) && (lon_box_max < lon_ext_max) && (lat_box_min > lat_ext_min) && (lat_box_max < lat_ext_max);
+}
+
+function calc_zoom(autozoom, center, box, vector_layer) {
+  for(i = autozoom; i > 1; i--) {
+    var extents = get_extents(i, center, vector_layer);
+    if (is_inside(box, extents)) {
+      return i - 1;
+    }
+  }
+  return 1;
+}
+
+var lon_min=180.0, lon_max=-180.0, lat_min=180.0, lat_max=-180.0;
+
 {% for geoitem in geomap_items %}
 
 if (!styles.has("{{ geoitem.geomap_icon }}")) {
@@ -81,6 +112,11 @@ if (!styles.has("{{ geoitem.geomap_icon }}")) {
   styles.set("{{ geoitem.geomap_icon }}", style);
 }
 
+if (lon_min > {{ geoitem.geomap_longitude }}) {lon_min = {{ geoitem.geomap_longitude }};}
+if (lon_max < {{ geoitem.geomap_longitude }}) {lon_max = {{ geoitem.geomap_longitude }};}
+if (lat_min > {{ geoitem.geomap_latitude }}) {lat_min = {{ geoitem.geomap_latitude }};}
+if (lat_max < {{ geoitem.geomap_latitude }}) {lat_max = {{ geoitem.geomap_latitude }};}
+
 geoitem_edit = setMarker(
   [{{ geoitem.geomap_longitude }}, {{ geoitem.geomap_latitude }}],
   {% if geomap_common %}
@@ -96,6 +132,54 @@ geoitem_edit = setMarker(
 );
 
 {% endfor %}
+
+var lon_center = lon_min + (lon_max - lon_min) / 2.0;
+var lat_center = lat_min + (lat_max - lat_min) / 2.0;
+var map_zoom;
+
+if ({{ geomap_autozoom }} > 0) {
+
+  {% if geomap_items %}
+
+    {% if geomap_items|length == 1 %}
+      map_zoom = {{ geomap_autozoom }};
+    {% else %}
+      map_zoom = calc_zoom({{ geomap_autozoom }}, [lon_center, lat_center], [lon_min, lon_max, lat_min, lat_max], vectorLayer);
+    {% endif %}
+
+  {% else %}
+    lon_center = {{ geomap_longitude }};
+    lat_center = {{ geomap_latitude }};
+    map_zoom = {{ geomap_zoom }};
+  {% endif %}
+
+  } else {
+  lon_center = {{ geomap_longitude }};
+  lat_center = {{ geomap_latitude }};
+  map_zoom = {{ geomap_zoom }};
+}
+
+var view = new ol.View({
+  center: ol.proj.fromLonLat([lon_center, lat_center]),
+  maxZoom: 19,
+  minZoom: 1,
+  zoom: map_zoom
+});
+
+const map = new ol.Map({
+  layers: [new ol.layer.Tile({
+    source: new ol.source.OSM()
+    // source: new ol.source.OSM({
+    //   key: 'myKey',
+    //   crossOrigin: ''
+    // })
+  }), vectorLayer, ],
+
+  target: 'map',
+  controls: ol.control.defaults(),
+  view: view
+
+});
 
 {% if geomap_form %}
 
