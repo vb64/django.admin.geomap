@@ -44,6 +44,7 @@ function setIconPointer() {
 }
 
 function get_extents(map_zoom, center, vector_layer) {
+// https://gis.stackexchange.com/questions/133360/how-to-get-the-latitude-longitude-of-the-4-corners-of-the-map-being-displayed
   var lon_center=center[0], lat_center=center[1];
 
   var view = new ol.View({
@@ -84,13 +85,9 @@ function is_inside(box, ext) {
 }
 
 function calc_zoom(autozoom, center, box, vector_layer) {
-  console.log('# box', box);
-  console.log('# center', center);
   for(i = autozoom; i > 1; i--) {
     var extents = get_extents(i, center, vector_layer);
-    console.log('#zoom', i, 'extents', extents);
     if (is_inside(box, extents)) {
-      console.log('# found', i);
       return i - 1;
     }
   }
@@ -115,7 +112,6 @@ if (!styles.has("{{ geoitem.geomap_icon }}")) {
   styles.set("{{ geoitem.geomap_icon }}", style);
 }
 
-// console.log('#lon', {{ geoitem.geomap_longitude }}, 'lat', {{ geoitem.geomap_latitude }});
 if (lon_min > {{ geoitem.geomap_longitude }}) {lon_min = {{ geoitem.geomap_longitude }};}
 if (lon_max < {{ geoitem.geomap_longitude }}) {lon_max = {{ geoitem.geomap_longitude }};}
 if (lat_min > {{ geoitem.geomap_latitude }}) {lat_min = {{ geoitem.geomap_latitude }};}
@@ -141,12 +137,6 @@ var lon_center = lon_min + (lon_max - lon_min) / 2.0;
 var lat_center = lat_min + (lat_max - lat_min) / 2.0;
 var map_zoom;
 
-console.log('lon', lon_min, 'x', lon_max);
-console.log('lat', lat_min, 'x', lat_max);
-
-console.log('lon_center', lon_center);
-console.log('lat_center', lat_center);
-
 if ({{ geomap_autozoom }} > 0) {
 
   {% if geomap_items %}
@@ -169,13 +159,6 @@ if ({{ geomap_autozoom }} > 0) {
   map_zoom = {{ geomap_zoom }};
 }
 
-// https://gis.stackexchange.com/questions/133360/how-to-get-the-latitude-longitude-of-the-4-corners-of-the-map-being-displayed
-// var glbox = map.getView().calculateExtent(map.getSize());
-// box: 4 numbers to define: top, bottom, left, and right.
-// var box = ol.proj.transformExtent(glbox,'EPSG:3857','EPSG:4326');
-
-console.log('map_zoom', map_zoom);
-
 var view = new ol.View({
   center: ol.proj.fromLonLat([lon_center, lat_center]),
   maxZoom: 19,
@@ -197,10 +180,6 @@ const map = new ol.Map({
   view: view
 
 });
-
-// var glbox = map.getView().calculateExtent(map.getSize());
-// var box = ol.proj.transformExtent(glbox,'EPSG:3857','EPSG:4326');
-// console.log('box', box);
 
 {% if geomap_form %}
 
