@@ -64,11 +64,16 @@ function get_extents(map_zoom, center, vector_layer) {
   
     });
 
-  return ol.proj.transformExtent(
+  extents = ol.proj.transformExtent(
     map.getView().calculateExtent(map.getSize()),
     'EPSG:3857',
     'EPSG:4326'
   );
+
+  map.setTarget(null);
+  map = null;
+
+  return extents
 }
 
 function is_inside(box, ext) {
@@ -88,7 +93,7 @@ function calc_zoom(autozoom, center, box, vector_layer) {
       return i;
     }
   }
-  return 0;
+  return 1;
 }
 
 var lon_min=180.0, lon_max=-180.0, lat_min=180.0, lat_max=-180.0;
