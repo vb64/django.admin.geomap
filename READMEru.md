@@ -169,7 +169,7 @@ admin.site.register(Location, Admin)
     return render(request, 'home.html', geomap_context(Location.objects.all(), auto_zoom="10"))
 ```
 
-В админке нужно задать атрибут `geomap_autozoom` у класса админки.
+В классе админки нужно задать атрибут `geomap_autozoom`.
 
 ```python
 # admin.py

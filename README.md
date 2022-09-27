@@ -120,6 +120,7 @@ The `geomap_context` function accepts additional named arguments to customize th
 -   map_longitude: map center longitude, default is "0.0"
 -   map_latitude: map center latitude, default is "0.0"
 -   map_zoom: map zoom level, default is "1"
+-   auto_zoom: enables autozoom mode (see below), default is "-1" (autozoom mode is disabled)
 -   map_height: vertical map size, default is "500px"
 
 ## List of objects on the map in the admin panel
@@ -161,6 +162,37 @@ After making these changes, in the admin panel on the page for viewing/editing t
 When editing, you can change the position of an object by dragging its icon across the map with the mouse (you need to move the mouse cursor over the bottom of the icon until a blue dot appears on it).
 
 When adding a new object, its position can be set by clicking on the map. Further, the marker of the new object can be dragged, similar to editing.
+
+## Autozoom mode
+
+By default, this mode is disabled.
+You can enable autozoom mode when displaying objects on the map both in regular views and in the Django admin panel.
+
+In regular Django views, the `geomap_context` function needs to be passed the named argument `auto_zoom`.
+
+```python
+    return render(request, 'home.html', geomap_context(Location.objects.all(), auto_zoom="10"))
+```
+
+In the admin panel class, you need to set the `geomap_autozoom` attribute.
+
+```python
+# admin.py
+from django_admin_geomap import ModelAdmin
+
+class Admin(ModelAdmin):
+    geomap_autozoom = "10"
+```
+
+The autozoom mode works differently depending on the number of objects that you want to display on the map.
+
+If the list of displayed objects is empty, the autozoom mode is disabled.
+
+If the list contains one object, then the map center is set to the coordinates of this object, and the map scale is set to the value of the autozoom parameter (10 for the examples above).
+
+If the list contains more than one object, the program determines the minimum quadrilateral that contains all the displayed objects.
+The center of the map is set to the coordinates of the center of this quadrilateral.
+The scale of the map is set in such a way as to fit the given quadrilateral with small indents along the edges.
 
 ## Additional customization
 
