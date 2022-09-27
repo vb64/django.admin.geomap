@@ -12,9 +12,7 @@ class Admin(ModelAdmin):
     geomap_field_longitude = "id_lon"
     geomap_field_latitude = "id_lat"
     search_fields = ['name']
-    geomap_default_longitude = "0.0"
-    geomap_default_latitude = "51.50813"
-    geomap_default_zoom = "10"
-    geomap_autozoom = geomap_default_zoom
+    geomap_item_zoom  = "10"
+    geomap_autozoom = geomap_item_zoom
 
 admin.site.register(Location, Admin)
