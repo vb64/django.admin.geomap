@@ -77,20 +77,21 @@ function get_extents(map_zoom, center, vector_layer) {
 }
 
 function is_inside(box, ext) {
-  var lon_box_max=box[0], lon_box_min=box[1], lat_box_max=box[2], lat_box_min=box[3];
-  var lon_ext_max=ext[0], lon_ext_min=ext[1], lat_ext_max=ext[2], lat_ext_min=ext[3];
+  var lon_box_min=box[0], lon_box_max=box[1], lat_box_min=box[2], lat_box_max=box[3];
+  var lon_ext_min=ext[0], lon_ext_max=ext[2], lat_ext_min=ext[1], lat_ext_max=ext[3];
 
-  return false;
+  return (lon_box_min > lon_ext_min) && (lon_box_max < lon_ext_max) && (lat_box_min > lat_ext_min) && (lat_box_max < lat_ext_max);
 }
 
 function calc_zoom(autozoom, center, box, vector_layer) {
   console.log('# box', box);
   console.log('# center', center);
-  for(i = autozoom; i > 0; i--) {
+  for(i = autozoom; i > 1; i--) {
     var extents = get_extents(i, center, vector_layer);
     console.log('#zoom', i, 'extents', extents);
     if (is_inside(box, extents)) {
-      return i;
+      console.log('# found', i);
+      return i - 1;
     }
   }
   return 1;
@@ -147,7 +148,7 @@ console.log('lon_center', lon_center);
 console.log('lat_center', lat_center);
 
 if ({{ geomap_autozoom }} > 0) {
-  map_zoom = calc_zoom({{ geomap_autozoom }}, [lon_center, lat_center], [lon_max, lon_min, lat_max, lat_min], vectorLayer);
+  map_zoom = calc_zoom({{ geomap_autozoom }}, [lon_center, lat_center], [lon_min, lon_max, lat_min, lat_max], vectorLayer);
   } else {
   lon_center = {{ geomap_longitude }};
   lat_center = {{ geomap_latitude }};
