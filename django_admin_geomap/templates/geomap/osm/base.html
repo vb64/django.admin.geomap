@@ -148,7 +148,21 @@ console.log('lon_center', lon_center);
 console.log('lat_center', lat_center);
 
 if ({{ geomap_autozoom }} > 0) {
-  map_zoom = calc_zoom({{ geomap_autozoom }}, [lon_center, lat_center], [lon_min, lon_max, lat_min, lat_max], vectorLayer);
+
+  {% if geomap_items %}
+
+    {% if geomap_items|length == 1 %}
+      map_zoom = {{ geomap_autozoom }};
+    {% else %}
+      map_zoom = calc_zoom({{ geomap_autozoom }}, [lon_center, lat_center], [lon_min, lon_max, lat_min, lat_max], vectorLayer);
+    {% endif %}
+
+  {% else %}
+    lon_center = {{ geomap_longitude }};
+    lat_center = {{ geomap_latitude }};
+    map_zoom = {{ geomap_zoom }};
+  {% endif %}
+
   } else {
   lon_center = {{ geomap_longitude }};
   lat_center = {{ geomap_latitude }};
