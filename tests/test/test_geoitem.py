@@ -10,6 +10,15 @@ class TestsGeoItem(TestBase):
     """GeoItem class."""
 
     @staticmethod
+    def test_model_quotas():
+        """Model with quotas in string representation."""
+        from example.models import WithQuotas
+
+        location = WithQuotas(name="with_quotas")
+        assert str(location) == '"with_quotas"'
+        assert '"' not in location.geomap_popup_view
+
+    @staticmethod
     def test_properties():
         """Check properties."""
         from example.models import Location
