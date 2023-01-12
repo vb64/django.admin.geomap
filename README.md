@@ -18,7 +18,7 @@ If you only need to display objects on the map in the Django admin site, then yo
 It has no additional requirements for the names and data types of fields in the database tables, and there are no installation dependencies.
 
 DjangoAdminGeomap uses the [OpenLayers](https://openlayers.org/) JavaScript framework to display map data.
-The source of the cartographic data is the data of the [OpenStreetMap project](https://www.openstreetmap.org/).
+The source of the cartographic data is the [OpenStreetMap project](https://www.openstreetmap.org/).
 
 ## Installation
 
