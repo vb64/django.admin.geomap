@@ -1,6 +1,6 @@
 """Geomap package."""
-from django.contrib import admin
 from html import escape
+from django.contrib import admin
 
 
 class Key:
