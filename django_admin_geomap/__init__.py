@@ -1,5 +1,6 @@
 """Geomap package."""
 from django.contrib import admin
+from html import escape
 
 
 class Key:
@@ -26,7 +27,7 @@ class GeoItem:
     @property
     def geomap_popup_view(self):
         """Html code for display in marker popup at the map for RO users."""
-        return "<strong>{}</strong>".format(str(self))
+        return "<strong>{}</strong>".format(escape(str(self), quote=True))
 
     @property
     def geomap_popup_edit(self):
