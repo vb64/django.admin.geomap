@@ -19,3 +19,11 @@ class Location(models.Model, GeoItem):
     @property
     def geomap_latitude(self):
         return '' if self.lat is None else str(self.lat)
+
+
+class WithQuotas(Location):
+    """Model with quotas."""
+
+    def __str__(self):
+        """Quotas in string representation."""
+        return "\"{}\"".format(self.name)
