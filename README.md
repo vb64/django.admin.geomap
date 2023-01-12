@@ -75,7 +75,7 @@ class Location(models.Model, GeoItem):
 
     @property
     def geomap_latitude(self):
-        return '' if self.lon is None else str(self.lat)
+        return '' if self.lat is None else str(self.lat)
 ```
 
 After making these changes to the definition of the model, you can display a map with objects from the `Location` table in an arbitrary view.
