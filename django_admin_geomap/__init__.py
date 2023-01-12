@@ -98,7 +98,7 @@ class ModelAdmin(admin.ModelAdmin):
         # Obtain original response from Django
         response = super().changelist_view(request, extra_context=extra_context)
 
-        if self.geomap_show_map_on_list == True:
+        if self.geomap_show_map_on_list is True:
             # Obtain final queryset from ChangeList object
             change_list_queryset = response.context_data['cl'].queryset
 
