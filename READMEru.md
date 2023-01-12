@@ -70,7 +70,7 @@ class Location(models.Model, GeoItem):
 
     @property
     def geomap_latitude(self):
-        return '' if self.lon is None else str(self.lat)
+        return '' if self.lat is None else str(self.lat)
 ```
 
 После внесения данных изменений в определение модели можно отображать карту с объектами из таблицы `Location` в произвольном представлении (view).
