@@ -304,9 +304,9 @@ class Admin(ModelAdmin):
 ```
 
 ### Show or hide map in list view
-By default, the map is shown on the list view and in the detail view. To hide the map on the list view, set `geomap_show_map_on_list` to `False`.
 
-The default is `True`.
+By default, the map is shown on the list view and in the detail view.
+To hide the map on the list view, set `geomap_show_map_on_list` property from `django_admin_geomap.ModelAdmin` class to `False`.
 
 ```python
 # admin.py

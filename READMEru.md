@@ -300,6 +300,19 @@ class Admin(ModelAdmin):
     geomap_height = "300px"
 ```
 
+### Отключение карты при отображении списка объектов в админке
+
+При отображении списка объектов в админке по умолчанию карта со значками обьектов отображается.
+Чтобы скрыть карту, установите свойство `geomap_show_map_on_list` класса `django_admin_geomap.ModelAdmin` в `False`.
+
+```python
+# admin.py
+from django_admin_geomap import ModelAdmin
+
+class Admin(ModelAdmin):
+    geomap_show_map_on_list = False
+```
+
 ## Пример использования
 
 Вы можете запустить работающий на локальном компьютере пример использования библиотеки.
