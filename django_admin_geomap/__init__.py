@@ -65,6 +65,7 @@ class ModelAdmin(admin.ModelAdmin):
     geomap_item_zoom = "13"
     geomap_height = "500px"
     geomap_autozoom = "-1"
+    geomap_show_map_on_list = True
 
     geomap_field_longitude = ""
     geomap_field_latitude = ""
@@ -96,6 +97,9 @@ class ModelAdmin(admin.ModelAdmin):
         """Add geomap data to show at the map."""
         # Obtain original response from Django
         response = super().changelist_view(request, extra_context=extra_context)
+
+        if not self.geomap_show_map_on_list:
+            return response
 
         # Obtain final queryset from ChangeList object
         change_list_queryset = response.context_data['cl'].queryset

@@ -303,6 +303,19 @@ class Admin(ModelAdmin):
     geomap_height = "300px"
 ```
 
+### Show or hide map in list view
+By default, the map is shown on the list view and in the detail view. To hide the map on the list view, set `geomap_show_map_on_list` to `False`.
+
+The default is `True`.
+
+```python
+# admin.py
+from django_admin_geomap import ModelAdmin
+
+class Admin(ModelAdmin):
+    geomap_show_map_on_list = False
+```
+
 ## Usage example
 
 You can run an example of using the library on your local host.
