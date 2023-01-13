@@ -98,14 +98,16 @@ class ModelAdmin(admin.ModelAdmin):
         # Obtain original response from Django
         response = super().changelist_view(request, extra_context=extra_context)
 
-        if self.geomap_show_map_on_list is True:
-            # Obtain final queryset from ChangeList object
-            change_list_queryset = response.context_data['cl'].queryset
+        if not self.geomap_show_map_on_list:
+            return response
 
-            # Add the geomap data to the context
-            extra_context = self.set_common(request, extra_context)
-            extra_context[Key.MapItems] = change_list_queryset
-            response.context_data.update(extra_context)  # add to existing context
+        # Obtain final queryset from ChangeList object
+        change_list_queryset = response.context_data['cl'].queryset
+
+        # Add the geomap data to the context
+        extra_context = self.set_common(request, extra_context)
+        extra_context[Key.MapItems] = change_list_queryset
+        response.context_data.update(extra_context)  # add to existing context
 
         return response
 
