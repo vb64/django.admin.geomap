@@ -17,6 +17,21 @@ class TestsUrls(TestBase):
         response = self.client.get(reverse('home'))
         assert response.status_code == 200
 
+    def test_show_map_on_list(self):
+        """Property show_map_on_list."""
+        from example.admin import Admin
+
+        Admin.geomap_show_map_on_list = False
+        password = 'mypassword'
+
+        from django.contrib.auth.models import User  # pylint: disable=imported-auth-user
+
+        admin = User.objects.create_superuser('admin_test_suite', 'myemail@test.com', password)
+        self.client.login(username=admin.username, password=password)
+
+        response = self.client.get(reverse('admin:example_location_changelist'))
+        assert response.status_code == 200
+
     def test_admin(self):
         """Admin site urls."""
         from django.contrib.auth.models import User  # pylint: disable=imported-auth-user
