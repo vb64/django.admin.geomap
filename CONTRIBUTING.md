@@ -3,9 +3,9 @@ This project use github to host code, to track issues and feature requests, as w
 
 You can make contributing to this project, whether it's:
 
-- Reporting a bug using [Github issues](https://github.com/vb64/django.admin.geomap/issues)
-- Proposing new features using [Github issues](https://github.com/vb64/django.admin.geomap/issues)
-- Submitting a code using [Github Pull Request](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request)
+-   Reporting a bug using [Github issues](https://github.com/vb64/django.admin.geomap/issues)
+-   Proposing new features using [Github issues](https://github.com/vb64/django.admin.geomap/issues)
+-   Submitting a code using [Github Pull Request](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request)
 
 ## Write bug reports with detail, background, and sample code
 **Great Bug Reports** tend to have:
@@ -28,12 +28,12 @@ All your suggestions for a more flexible and functional display of objects on th
 ## All code changes happen through pull requests and [Github Flow](https://guides.github.com/introduction/flow/index.html)
 Pull requests are the best way to propose changes to the codebase.
 
-1. Fork the repo and create your branch from `main`.
-2. If you've add/change/remove features, update the README.md.
-3. If you've added code that should be tested, add tests. 100% test coverage is a fetish of the author of this code ;)
-4. Ensure the test suite passes.
-5. Make sure your code lints.
-6. Issue that pull request!
+-   Fork the repo and create your branch from `main`.
+-   If you've add/change/remove features, update the README.md.
+-   If you've added code that should be tested, add tests. 100% test coverage is a fetish of the author of this code ;)
+-   Ensure the test suite passes.
+-   Make sure your code lints.
+-   Issue that pull request!
 
 ## Any contributions you make will be under the MIT Software License
 When you submit code changes, your submissions are understood to be under the same [MIT License](http://choosealicense.com/licenses/mit/) that covers the project. Feel free to contact the maintainers if that's a concern.
