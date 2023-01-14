@@ -25,8 +25,9 @@ For example, geodata processing functions or improvements in the Django admin pa
 
 All your suggestions for a more flexible and functional display of objects on the map are welcome.
 
-## All code changes happen through pull requests and [Github Flow](https://guides.github.com/introduction/flow/index.html)
+## All code changes happen through pull requests
 Pull requests are the best way to propose changes to the codebase.
+[Github Flow](https://guides.github.com/introduction/flow/index.html) perform quality checks for you code.
 
 -   Fork the repo and create your branch from `main`.
 -   If you've add/change/remove features, update the README.md.
