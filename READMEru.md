@@ -21,7 +21,7 @@
 pip install django-admin-geomap
 ```
 
-Для подключения DjangoAdminGeomap к вашему проекту в файле `settings.py` нужно добавить `'django_admin_geomap'` в список `INSTALLED_APPS`.
+Для подключения DjangoAdminGeomap к вашему проекту в файле `settings.py` нужно добавить `'django_admin_geomap'` в `INSTALLED_APPS`.
 
 ```python
 

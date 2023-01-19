@@ -10,11 +10,12 @@ You can make contributing to this project, whether it's:
 ## Write bug reports with detail, background, and sample code
 **Great Bug Reports** tend to have:
 
--   A quick summary and/or background
+-   What version of the DjangoAdminGeomap and Django is being used.
+-   A quick summary and/or background.
 -   Steps to reproduce. Be specific! Give sample code if you can.
--   What you expected would happen
--   What actually happens
--   Notes (possibly including why you think this might be happening, or stuff you tried that didn't work)
+-   What you expected would happen.
+-   What actually happens.
+-   Notes (possibly including why you think this might be happening, or stuff you tried that didn't work).
 
 ## Propose new features according to the goals of the project
 This project solves one simple and common problem: displaying records from the Django database on a map.

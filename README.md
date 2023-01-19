@@ -26,7 +26,7 @@ The source of the cartographic data is the [OpenStreetMap project](https://www.o
 pip install django-admin-geomap
 ```
 
-To connect DjangoAdminGeomap to your project, add `'django_admin_geomap'` to the `INSTALLED_APPS` list  in your `settings.py` file.
+To connect DjangoAdminGeomap to your project, add `'django_admin_geomap'` to the `INSTALLED_APPS` in your `settings.py` file.
 
 ```python
 
