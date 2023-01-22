@@ -101,6 +101,9 @@ class ModelAdmin(admin.ModelAdmin):
         if not self.geomap_show_map_on_list:
             return response
 
+        if (not hasattr(response, 'context_data')) or ('cl' not in response.context_data):
+            return response
+
         # Obtain final queryset from ChangeList object
         change_list_queryset = response.context_data['cl'].queryset
 
