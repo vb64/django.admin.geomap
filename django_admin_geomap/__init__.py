@@ -55,6 +55,11 @@ class GeoItem:
         raise NotImplementedError("{}.geomap_latitude".format(self.__class__.__name__))
 
 
+def is_special_case(response):
+    """Check DjangoAdmin response for special cases."""
+    return (not hasattr(response, 'context_data')) or ('cl' not in response.context_data)
+
+
 class ModelAdmin(admin.ModelAdmin):
     """Base class for admin model with geomap support."""
 
@@ -98,7 +103,7 @@ class ModelAdmin(admin.ModelAdmin):
         # Obtain original response from Django
         response = super().changelist_view(request, extra_context=extra_context)
 
-        if not self.geomap_show_map_on_list:
+        if (not self.geomap_show_map_on_list) or is_special_case(response):
             return response
 
         # Obtain final queryset from ChangeList object
