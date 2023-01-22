@@ -62,6 +62,9 @@ To enable the display of `Location` objects on the map, you need to make changes
 Add the `django_admin_geomap.GeoItem` "mixin" class to the inheritance list of the `Location` class and define two properties:` geomap_longitude` and `geomap_latitude`.
 These properties should return the longitude and latitude of the object as a string.
 
+If at least one of these two properties returns an empty string, then the corresponding object will not be displayed on the map.
+For example, objects that do not have coordinates or some kind of "secret" objects from your database.
+
 ```python
 # models.py
 from django.db import models
