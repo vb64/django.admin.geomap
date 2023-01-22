@@ -97,6 +97,7 @@ function calc_zoom(autozoom, center, box, vector_layer) {
 var lon_min=180.0, lon_max=-180.0, lat_min=180.0, lat_max=-180.0;
 
 {% for geoitem in geomap_items %}
+{% if geoitem.geomap_longitude and geoitem.geomap_latitude %}
 
 if (!styles.has("{{ geoitem.geomap_icon }}")) {
   // create custom marker image
@@ -131,6 +132,7 @@ geoitem_edit = setMarker(
   "{{ geoitem.geomap_icon }}"
 );
 
+{% endif %}
 {% endfor %}
 
 var lon_center = lon_min + (lon_max - lon_min) / 2.0;
