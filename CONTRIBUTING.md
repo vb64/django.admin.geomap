@@ -20,9 +20,10 @@ You can make contributing to this project, whether it's:
 ## Propose new features according to the goals of the project
 This project solves one simple and common problem: displaying records from the Django database on a map.
 
-For example, geodata processing functions or improvements in the Django admin panel.
-
 All your suggestions for a more flexible and functional display of objects on the map are welcome.
+
+Any other tasks related to geodata and Django are not the goals of this project.
+For example, geodata processing functions or improvements in the Django admin panel.
 
 ## All code changes happen through pull requests
 Pull requests are the best way to propose changes to the codebase.
