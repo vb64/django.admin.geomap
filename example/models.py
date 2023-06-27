@@ -1,9 +1,13 @@
 """Models definition."""
+import uuid
+
 from django.db import models
 from django_admin_geomap import GeoItem
 
 
 class Location(models.Model, GeoItem):
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
     name = models.CharField(max_length=100)
     lon = models.FloatField(null=True, blank=True)
