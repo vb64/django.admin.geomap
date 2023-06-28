@@ -130,7 +130,7 @@ class ModelAdmin(admin.ModelAdmin):
         return super().change_view(request, object_id, form_url, extra_context=extra_context)
 
     def add_view(self, request, form_url='', extra_context=None):
-        """New antenna data at the map."""
+        """Add new antenna data at the map."""
         return super().add_view(request, form_url, extra_context=self.set_common(request, extra_context))
 
 

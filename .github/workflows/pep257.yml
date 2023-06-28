@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['3.9']
+        python-version: ['3.11']
 
     steps:
     - uses: actions/checkout@v3
@@ -26,12 +26,12 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install pep257
+        pip install pydocstyle
 
     - name: source
       run: |
-        python -m pep257 django_admin_geomap
+        python -m pydocstyle django_admin_geomap
 
     - name: tests
       run: |
-        python -m pep257 --match='.*\.py' tests/test
+        python -m pydocstyle --match='.*\.py' tests/test

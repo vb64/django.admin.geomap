@@ -38,8 +38,8 @@ lint:
 	$(PYLINT) $(SOURCE)
 
 pep257:
-	$(PYTHON) -m pep257 $(SOURCE)
-	$(PYTHON) -m pep257 --match='.*\.py' $(TESTS)/test
+	$(PYTHON) -m pydocstyle $(SOURCE)
+	$(PYTHON) -m pydocstyle --match='.*\.py' $(TESTS)/test
 
 tests: flake8 pep257 lint static db
 	$(PYTEST) --durations=5 $(TESTS)

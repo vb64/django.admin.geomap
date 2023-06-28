@@ -7,8 +7,7 @@ static/*
 *.sqlite3
 .coverage
 htmlcov/*
-venv/*
-venv.*
+venv*
 build/
 dist/
 *.egg-info/
