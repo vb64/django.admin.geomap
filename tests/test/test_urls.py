@@ -20,10 +20,18 @@ class TestsUrls(TestBase):
         admin = User.objects.create_superuser('admin_test_suite', 'myemail@test.com', password)
         self.client.login(username=admin.username, password=password)
 
-    def test_home_uuid(self):
+
+class TestsUuid(TestsUrls):
+    """Model with uuid pk."""
+
+    def test_home(self):
         """Page with uuid-key locations."""
         response = self.client.get(reverse('home_uuid'))
         assert response.status_code == 200
+
+
+class TestsIdInt(TestsUrls):
+    """Model with integer pk."""
 
     def test_home(self):
         """Root page."""
@@ -41,11 +49,7 @@ class TestsUrls(TestBase):
 
     def test_admin(self):
         """Admin site urls."""
-        from django.contrib.auth.models import User  # pylint: disable=imported-auth-user
-
-        password = 'mypassword'
-        admin = User.objects.create_superuser('admin_test_suite', 'myemail@test.com', password)
-        self.client.login(username=admin.username, password=password)
+        self.admin_login()
 
         response = self.client.get(reverse('admin:index'))
         assert response.status_code == 200
