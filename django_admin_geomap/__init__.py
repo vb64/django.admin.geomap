@@ -119,7 +119,7 @@ class ModelAdmin(admin.ModelAdmin):
     def change_view(self, request, object_id, form_url='', extra_context=None):
         """Add data for show item at the map."""
         extra_context = self.set_common(request, extra_context)
-        item = list(self.get_queryset(request).filter(id=int(object_id)))[0]
+        item = list(self.get_queryset(request).filter(pk=object_id))[0]
 
         if item.geomap_longitude and item.geomap_latitude:
             extra_context[Key.MapItems] = [item]
