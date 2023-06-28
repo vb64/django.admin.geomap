@@ -12,6 +12,19 @@ class TestsUrls(TestBase):
     https://docs.djangoproject.com/en/3.2/ref/contrib/admin/#admin-reverse-urls
     """
 
+    def admin_login(self):
+        """Login as superuser to admin site."""
+        from django.contrib.auth.models import User  # pylint: disable=imported-auth-user
+
+        password = 'mypassword'
+        admin = User.objects.create_superuser('admin_test_suite', 'myemail@test.com', password)
+        self.client.login(username=admin.username, password=password)
+
+    def test_home_uuid(self):
+        """Page with uuid-key locations."""
+        response = self.client.get(reverse('home_uuid'))
+        assert response.status_code == 200
+
     def test_home(self):
         """Root page."""
         response = self.client.get(reverse('home'))
@@ -22,13 +35,7 @@ class TestsUrls(TestBase):
         from example.admin import Admin
 
         Admin.geomap_show_map_on_list = False
-        password = 'mypassword'
-
-        from django.contrib.auth.models import User  # pylint: disable=imported-auth-user
-
-        admin = User.objects.create_superuser('admin_test_suite', 'myemail@test.com', password)
-        self.client.login(username=admin.username, password=password)
-
+        self.admin_login()
         response = self.client.get(reverse('admin:example_location_changelist'))
         assert response.status_code == 200
 

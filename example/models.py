@@ -6,8 +6,7 @@ from django_admin_geomap import GeoItem
 
 
 class Location(models.Model, GeoItem):
-
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    """Integer ids."""
 
     name = models.CharField(max_length=100)
     lon = models.FloatField(null=True, blank=True)
@@ -23,6 +22,27 @@ class Location(models.Model, GeoItem):
     @property
     def geomap_latitude(self):
         return '' if self.lat is None else str(self.lat)
+
+
+class LocationUuid(models.Model, GeoItem):
+    """Uuid ids."""
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
+    name = models.CharField(max_length=100)
+    longitude = models.FloatField(null=True, blank=True)
+    latitude = models.FloatField(null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+    @property
+    def geomap_longitude(self):
+        return '' if self.longitude is None else str(self.longitude)
+
+    @property
+    def geomap_latitude(self):
+        return '' if self.latitude is None else str(self.latitude)
 
 
 class WithQuotas(Location):
