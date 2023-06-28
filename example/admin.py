@@ -16,7 +16,7 @@ class Admin(ModelAdmin):
     geomap_autozoom = geomap_item_zoom
 
 
-class AdminUuid(Admin):
+class AdminUuid(ModelAdmin):
     """Admin site for uuid model."""
 
     list_display = ['name', 'longitude', 'latitude']

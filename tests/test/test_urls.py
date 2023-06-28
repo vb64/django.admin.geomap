@@ -25,21 +25,57 @@ class TestsUuid(TestsUrls):
     """Model with uuid pk."""
 
     def test_home(self):
-        """Page with uuid-key locations."""
+        """Check page with uuid-key locations."""
         response = self.client.get(reverse('home_uuid'))
         assert response.status_code == 200
+
+    def test_show_map_on_list(self):
+        """Check property show_map_on_list."""
+        from example.admin import AdminUuid
+
+        AdminUuid.geomap_show_map_on_list = False
+        self.admin_login()
+        response = self.client.get(reverse('admin:example_locationuuid_changelist'))
+        assert response.status_code == 200
+
+    def test_admin(self):
+        """Check admin site urls."""
+        self.admin_login()
+
+        response = self.client.get(reverse('admin:example_locationuuid_changelist'))
+        assert response.status_code == 200
+
+        response = self.client.get(reverse('admin:example_locationuuid_add'))
+        assert response.status_code == 200
+
+        from example.models import LocationUuid
+
+        location = LocationUuid(
+          name='First location'
+        )
+        location.save()
+
+        # response = self.client.get(reverse('admin:example_locationuuid_change', args=(location.id,)))
+        # assert response.status_code == 200
+
+        location.longitude = 0.0
+        location.latitude = 0.0
+        location.save()
+
+        # response = self.client.get(reverse('admin:example_locationuuid_change', args=(location.id,)))
+        # assert response.status_code == 200
 
 
 class TestsIdInt(TestsUrls):
     """Model with integer pk."""
 
     def test_home(self):
-        """Root page."""
+        """Check root page."""
         response = self.client.get(reverse('home'))
         assert response.status_code == 200
 
     def test_show_map_on_list(self):
-        """Property show_map_on_list."""
+        """Check property show_map_on_list."""
         from example.admin import Admin
 
         Admin.geomap_show_map_on_list = False
@@ -48,7 +84,7 @@ class TestsIdInt(TestsUrls):
         assert response.status_code == 200
 
     def test_admin(self):
-        """Admin site urls."""
+        """Check admin site urls."""
         self.admin_login()
 
         response = self.client.get(reverse('admin:index'))
