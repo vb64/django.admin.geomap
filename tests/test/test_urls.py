@@ -55,15 +55,15 @@ class TestsUuid(TestsUrls):
         )
         location.save()
 
-        # response = self.client.get(reverse('admin:example_locationuuid_change', args=(location.id,)))
-        # assert response.status_code == 200
+        response = self.client.get(reverse('admin:example_locationuuid_change', args=(location.id,)))
+        assert response.status_code == 200
 
         location.longitude = 0.0
         location.latitude = 0.0
         location.save()
 
-        # response = self.client.get(reverse('admin:example_locationuuid_change', args=(location.id,)))
-        # assert response.status_code == 200
+        response = self.client.get(reverse('admin:example_locationuuid_change', args=(location.id,)))
+        assert response.status_code == 200
 
 
 class TestsIdInt(TestsUrls):
