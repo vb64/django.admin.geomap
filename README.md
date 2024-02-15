@@ -268,7 +268,7 @@ class Admin(ModelAdmin):
 
 ### Default map zoom level and center of the map when displaying a list of objects in the admin panel
 
-You can change the zoom level and position of the center of the map by setting the properties `geomap_default_longitude`,` geomap_default_latitude` and `geomap_default_zoom` in the class `django_admin_geomap.ModelAdmin`.
+You can change the zoom level and position of the center of the map by setting the properties `geomap_default_longitude`, `geomap_default_latitude` and `geomap_default_zoom` in the class `django_admin_geomap.ModelAdmin`.
 
 By default, the center of the map is located at the point with coordinates "0.0", "0.0" and the scale is "1".
 
