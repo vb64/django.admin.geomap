@@ -1,4 +1,5 @@
 # DjangoAdminGeomap library
+
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/vb64/django.admin.geomap/pep257.yml?label=Pep257&style=plastic&branch=main)](https://github.com/vb64/django.admin.geomap/actions?query=workflow%3Ageomap-pep257)
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/vb64/django.admin.geomap/django3.yml?label=Django%203.2.24&style=plastic&branch=main)](https://github.com/vb64/django.admin.geomap/actions?query=workflow%3Adjango3)
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/vb64/django.admin.geomap/django4.yml?label=Django%204.2.10&style=plastic&branch=main)](https://github.com/vb64/django.admin.geomap/actions?query=workflow%3Adjango4)
@@ -63,7 +64,7 @@ On the main page of the site and when working with this table in the admin panel
 
 To enable the display of `Location` objects on the map, you need to make changes to the model class in the `models.py` file.
 
-Add the `django_admin_geomap.GeoItem` "mixin" class to the inheritance list of the `Location` class and define two properties:` geomap_longitude` and `geomap_latitude`.
+Add the `django_admin_geomap.GeoItem` "mixin" class to the inheritance list of the `Location` class and define two properties: `geomap_longitude` and `geomap_latitude`.
 These properties should return the longitude and latitude of the object as a string.
 
 If at least one of these two properties returns an empty string, then the corresponding object will not be displayed on the map.
@@ -124,15 +125,15 @@ On the root page of the site, a map with markers in the locations of these objec
 
 The `geomap_context` function accepts additional named arguments to customize the properties of the map.
 
--   map_longitude: map center longitude, default is "0.0"
--   map_latitude: map center latitude, default is "0.0"
--   map_zoom: map zoom level, default is "1"
--   auto_zoom: enables autozoom mode (see below), default is "-1" (autozoom mode is disabled)
--   map_height: vertical map size, default is "500px"
+- map_longitude: map center longitude, default is "0.0"
+- map_latitude: map center latitude, default is "0.0"
+- map_zoom: map zoom level, default is "1"
+- auto_zoom: enables autozoom mode (see below), default is "-1" (autozoom mode is disabled)
+- map_height: vertical map size, default is "500px"
 
 ## List of objects on the map in the admin panel
 
-To display a map with objects in the site admin panel in the admin settings file `admin.py`, when registering a model, you need to use the` django_admin_geomap.ModelAdmin` class.
+To display a map with objects in the site admin panel in the admin settings file `admin.py`, when registering a model, you need to use the `django_admin_geomap.ModelAdmin` class.
 
 ```python
 # admin.py
@@ -149,7 +150,7 @@ After making these changes, in the admin panel on the page with a list of `Locat
 
 To display an object on the map in the edit/view form, you must additionally specify the field IDs in the Django form, which contain the longitude and latitude values of the object.
 
-For our `Location` class, the Django admin automatically assigns the IDs` id_lon` and `id_lat` to these form fields. The following changes need to be made to the `admin.py` file.
+For our `Location` class, the Django admin automatically assigns the IDs `id_lon` and `id_lat` to these form fields. The following changes need to be made to the `admin.py` file.
 
 ```python
 # admin.py
@@ -227,9 +228,9 @@ class Location(models.Model, GeoItem):
 
 When you click on a marker on the map, a pop-up panel is displayed. The HTML code used in this panel can be set by defining three properties on the model class.
 
--   `geomap_popup_common` displayed in regular views
--   `geomap_popup_view` displayed in the admin panel for a user without permission to edit the object
--   `geomap_popup_edit` displayed in the admin panel for a user who has permission to edit
+- `geomap_popup_common` displayed in regular views
+- `geomap_popup_view` displayed in the admin panel for a user without permission to edit the object
+- `geomap_popup_edit` displayed in the admin panel for a user who has permission to edit
 
 By default, all these properties return the string representation of the object.
 
@@ -329,9 +330,9 @@ You can run an example of using the library on your local host.
 
 On the Windows platform, you must first install the following programs.
 
--   [Python3](https://www.python.org/downloads/release/python-3810/)
--   GNU [Unix Utils](http://unxutils.sourceforge.net/) for operations via makefile
--   [Git for Windows](https://git-scm.com/download/win) to access the source code repository.
+- [Python3](https://www.python.org/downloads/release/python-3810/)
+- GNU [Unix Utils](http://unxutils.sourceforge.net/) for operations via makefile
+- [Git for Windows](https://git-scm.com/download/win) to access the source code repository.
 
 Then clone the repository and run the installation, specifying the path to Python 3.
 
