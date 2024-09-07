@@ -2,8 +2,8 @@
 
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/vb64/django.admin.geomap/pep257.yml?label=Pep257&style=plastic&branch=main)](https://github.com/vb64/django.admin.geomap/actions?query=workflow%3Ageomap-pep257)
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/vb64/django.admin.geomap/django3.yml?label=Django%203.2.25&style=plastic&branch=main)](https://github.com/vb64/django.admin.geomap/actions?query=workflow%3Adjango3)
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/vb64/django.admin.geomap/django4.yml?label=Django%204.2.13&style=plastic&branch=main)](https://github.com/vb64/django.admin.geomap/actions?query=workflow%3Adjango4)
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/vb64/django.admin.geomap/django5.yml?label=Django%205.0.6&style=plastic&branch=main)](https://github.com/vb64/django.admin.geomap/actions?query=workflow%3Adjango5)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/vb64/django.admin.geomap/django4.yml?label=Django%204.2.16&style=plastic&branch=main)](https://github.com/vb64/django.admin.geomap/actions?query=workflow%3Adjango4)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/vb64/django.admin.geomap/django5.yml?label=Django%205.1.1&style=plastic&branch=main)](https://github.com/vb64/django.admin.geomap/actions?query=workflow%3Adjango5)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/d565c3a3d78e4e198f35688432a741eb)](https://app.codacy.com/gh/vb64/django.admin.geomap/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/d565c3a3d78e4e198f35688432a741eb)](https://app.codacy.com/gh/vb64/django.admin.geomap/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/django-admin-geomap?label=pypi%20installs)](https://pypistats.org/packages/django-admin-geomap)
