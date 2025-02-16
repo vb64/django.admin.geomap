@@ -11,6 +11,7 @@ SECRET_KEY = 'XXX'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 ALLOWED_HOSTS = ['*']
+DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 
 # Application definition
 INSTALLED_APPS = (
