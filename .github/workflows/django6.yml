@@ -11,7 +11,7 @@ on:
 
 jobs:
 
-  django5:
+  django6:
     runs-on: ubuntu-latest
     strategy:
       matrix:
