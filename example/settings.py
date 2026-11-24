@@ -72,6 +72,9 @@ USE_I18N = False
 USE_L10N = False
 USE_TZ = False
 
+# django STATIC_ROOT and STATICFILES_DIRS
+# https://stackoverflow.com/questions/24022558/differences-between-staticfiles-dir-static-root-and-media-root
+
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
